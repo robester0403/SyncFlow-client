@@ -16,68 +16,70 @@ const JobMaterialTable = () => {
     const [recievedJobMaterial, setRecievedJobMaterial] = useState<Material[]>([]);
     const [inTransitMaterial, setIsTransitMaterial] = useState<Material[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true)
+const getMaterials = () =>{
+    axios.get(`http://localhost:8080/materials/${params.id}`)
+    .then((res) => {
+        setRecievedJobMaterial(res.data.filter((material: Material) => {
+            return material.status === "received"
+        }));
+
+        setIsTransitMaterial(res.data.filter((material: Material) => {
+            return material.status !== "received"
+        }))
+
+        setIsLoading(false)
+    }).catch((err) =>{
+        console.log(err)
+    })
+}
+
     useEffect(() => {
-        axios.get(`http://localhost:8080/materials/${params.id}`)
-            .then((res) => {
-                setRecievedJobMaterial(res.data.filter((material: Material) => {
-                    return material.status === "received"
-                }));
-
-                setIsTransitMaterial(res.data.filter((material: Material) => {
-                    return material.status !== "received"
-                }))
-
-                setIsLoading(false)
-            })
+       getMaterials
     }, [])
 
     if (isLoading) {
         return <div>Loading....</div>
     }
 
-    const onDragEnd = (result: DropResult) =>{
-      const {source, destination} = result;
+    const onDragEnd = (result: DropResult) => {
+        const { source, destination } = result;
 
-      if(!destination)return;
-      if(destination.droppableId === source.droppableId && 
-        destination.index === source.index ) return;
-    
-      let add,
-          inTransit =  inTransitMaterial,
-          recieved  =recievedJobMaterial;
-          if(source.droppableId === 'InTransitList' ){
-            add = inTransit[source.index];
-            inTransit.splice(source.index,1);
-          }else{
-            add = recieved[source.index];
-            recieved.splice(source.index, 1);
-          }
+        if (!destination) return;
+        if (destination.droppableId === source.droppableId &&
+            destination.index === source.index) return;
 
-          if(destination.droppableId === 'InTransitList' ){
-            inTransit.splice(destination.index,0, add);
-          }else{
-            recieved.splice(destination.index,0, add);
-          }
-          setIsTransitMaterial(inTransit);
-          setRecievedJobMaterial(recieved)
+  
+        if (source.droppableId === 'InTransitList') {
+            axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "received"})
+            .then(() =>{
+                getMaterials() 
+            })
+          
+        } else {
+            axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "in-transit"})
+            .then(() =>{
+                getMaterials() 
+              })
+        }
+
     }
 
 
 
     return (
-        <DragDropContext onDragEnd={ onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd}>
             <section className="tables">
                 <Droppable droppableId="RecievedList">
                     {
                         (provided) => (
                             <div className="recieved-table" ref={provided.innerRef}
-                                                            {...provided.droppableProps}>
+                                {...provided.droppableProps}>
                                 <JobMAterialTableHeader />
                                 {
-                                    recievedJobMaterial.map((material: Material,index) => {
+                                    recievedJobMaterial.map((material: Material, index) => {
                                         return <JobMaterialsRow key={material.material_id}
-                                                                material={material}
-                                                                index ={index}  />
+                                            material={material}
+                                            index={index} />
                                     })
                                 }
                                 {provided.placeholder}
@@ -90,21 +92,21 @@ const JobMaterialTable = () => {
                 <Droppable droppableId="InTransitList" >
                     {
                         (provided) => (
-                            <div className="inTransit-table"  ref={provided.innerRef}
-                                                              {...provided.droppableProps}>
+                            <div className="inTransit-table" ref={provided.innerRef}
+                                {...provided.droppableProps}>
                                 <JobMAterialTableHeader />
                                 {
-                                    inTransitMaterial.map((material: Material,index) => {
-                                        return <JobMaterialsRow key={material.material_id} 
-                                                                material={material}
-                                                                index ={index} />
+                                    inTransitMaterial.map((material: Material, index) => {
+                                        return <JobMaterialsRow key={material.material_id}
+                                            material={material}
+                                            index={index} />
                                     })
                                 }
-                               {provided.placeholder}
+                                {provided.placeholder}
                             </div>
                         )
                     }
-                  
+
                 </Droppable>
             </section>
         </DragDropContext>
