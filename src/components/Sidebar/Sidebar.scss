@@ -1,0 +1,87 @@
+.sidebar {
+  display: flex;
+  gap: 6rem;
+  
+  &__main {
+    background: #101540;;
+    min-height: 100vh;
+    transition: width 0.5s;
+    color: #f8f8f8;
+    padding: 0 1rem;
+    
+    &--open {
+      width: 72px;
+    }
+    
+    &--closed {
+      width: 16rem;
+    }
+  }
+  
+  &__menu-toggle {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+  }
+  
+  &__menu {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+  }
+  
+  &__link {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    gap: 3.5rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background 0.2s;
+    
+    &:hover {
+      background: #1c1c1c;
+    }
+    
+    &--with-margin {
+      margin-top: 1.25rem;
+    }
+    
+    &__name {
+      transition: all 0.5s;
+      white-space: pre;
+      
+      &--hidden {
+    
+        transform: translateX(28px);
+        overflow: hidden;
+      }
+    }
+    
+    &__tooltip {
+      position: absolute;
+      left: 48px;
+      background: white;
+      font-weight: 600;
+      white-space: pre;
+      color: #1c1c1c;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 0;
+      width: 0;
+      overflow: hidden;
+      
+    
+      &:hover {
+        padding: 0.5rem 1rem;
+        left: 14px;
+        transition-duration: 0.3s;
+        width: auto;
+      }
+    }
+  }
+}

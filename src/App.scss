@@ -1,6 +1,6 @@
 @use "./styles/partials/variables" as *;
 @use "./styles/partials/mixins" as *;
-@use "./styles/partials/typography";
+@use "./styles/partials/fonts" ;
 
 *{
   box-sizing: border-box;
@@ -9,5 +9,9 @@
 }
 
 body{
-    font-family: Roboto;
+    // font-family: Roboto;
+}
+
+.sideBar{
+  display: flex;
 }

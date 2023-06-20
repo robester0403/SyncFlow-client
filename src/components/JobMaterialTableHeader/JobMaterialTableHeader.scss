@@ -1,0 +1,33 @@
+@use "../../styles/partials/mixins" as *;
+
+.materials-table{
+
+  
+    &__header {
+        display: none;
+
+        @include tablet{
+
+            display: flex; 
+            padding: 1.25rem 0 ;
+            font-size: .875rem; 
+            font-weight: bold;
+            text-align: left; 
+            color: #2d3748;
+            background-color: #f7fafc; 
+            text-transform: uppercase;
+            // border-bottom: 1px solid #4a5568; 
+        
+        }
+        @include desktop{
+            width: 63.75rem;
+            margin: 0 auto;
+           }
+        
+    }
+
+    &__title {
+        width: 16.66%; 
+        padding: 0 0 0 1rem;
+    }
+}
