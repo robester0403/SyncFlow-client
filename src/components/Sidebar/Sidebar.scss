@@ -42,6 +42,7 @@
     padding: 0.5rem;
     border-radius: 0.5rem;
     transition: background 0.2s;
+    overflow: hidden;
     
     &:hover {
       background: #1c1c1c;

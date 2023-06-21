@@ -1,28 +1,29 @@
 import axios from "axios";
-import { WorkOrder } from "../../interface";
+import { WorkOrder } from "../../model";
 import {useState,useEffect} from 'react';
 import { useParams } from "react-router-dom";
 
 import "./WorkOrderDetails.scss"
 
-const WorkOrderDetails = () => {
+const WorkOrderDetails:React.FC  = () => {
       
     const [workOrder , setWorkOrder] = useState<WorkOrder>();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
     const params = useParams();
     let id:string |undefined = params.id
 useEffect(() =>{
-    axios.get(`http://localhost:8080/workorders/${id}/workoder`)
-    .then((res) =>{ setWorkOrder(res.data[0]);
-                    setIsLoading(false)})  
+    axios.get(`http://localhost:8080/workoders/${id}/workoder`)
+    .then((res) =>{ console.log(res)
+                    setWorkOrder(res.data[0]);})
+    .catch((err) =>{
+       console.log(err,"details")
+    })                  
     },[])
 
-    if(isLoading){
+    if(!workOrder){
         return <div>Loading...</div>
     }
      
-if(workOrder){
-    const {project_name,client_name ,employee_name ,workoder_Number,details} = workOrder;
+
 
     return (
         <div className="order-details">
@@ -32,7 +33,7 @@ if(workOrder){
                    Work Order Number
                 </p>
                 <p className="order-details__info">
-                   {workoder_Number}
+                   {workOrder.workoder_Number}
                 </p>                         
             </div>
 
@@ -42,7 +43,7 @@ if(workOrder){
                   Details
                 </p>
                 <p className="order-details__info">
-                  {details}
+                  {workOrder.details}
                 </p>
             </div>
             </div>
@@ -52,7 +53,7 @@ if(workOrder){
                   Project Name
                 </p>
                 <p className="order-details__info">
-                     {project_name}
+                     {workOrder.project_name}
                 </p>
             </div>
           </div>
@@ -63,7 +64,7 @@ if(workOrder){
                   Client Name
                 </p>
                 <p className="order-details__info">
-                  {client_name}
+                  {workOrder.client_name}
                 </p>
             </div>
 
@@ -72,14 +73,12 @@ if(workOrder){
                   Employee Assigned
                 </p>
                 <p className="order-details__info">
-                   {employee_name}
+                   {workOrder.employee_name}
                 </p>
             </div>
             </div>
-
         </div>
     )
-}
-}
+  }
 
-export default WorkOrderDetails
+export default WorkOrderDetails;

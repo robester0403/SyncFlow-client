@@ -3,11 +3,13 @@ import JobMAterialTableHeader from "../JobMaterialTableHeader/JobMAterialTableHe
 import JobMaterialsRow from "../JobMaterialsRow/JobMaterialsRow'";
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { Material } from "../../interface";
+import { Material } from "../../model";
 
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 // styles
 import "./JobMaterialTable.scss"
+import IntransitTable from "../IntransitTable/IntransitTable";
+import IntransitHeader from "../IntransitHeader/IntransitHeader";
 
 
 
@@ -19,6 +21,7 @@ const JobMaterialTable = () => {
 const getMaterials = () =>{
     axios.get(`http://localhost:8080/materials/${params.id}`)
     .then((res) => {
+        console.log(res)
         setRecievedJobMaterial(res.data.filter((material: Material) => {
             return material.status === "received"
         }));
@@ -34,7 +37,7 @@ const getMaterials = () =>{
 }
 
     useEffect(() => {
-       getMaterials
+       getMaterials()
     }, [])
 
     if (isLoading) {
@@ -45,9 +48,9 @@ const getMaterials = () =>{
         const { source, destination } = result;
 
         if (!destination) return;
-        if (destination.droppableId === source.droppableId &&
-            destination.index === source.index) return;
-
+        if (destination.droppableId === source.droppableId) return;
+        if  (destination.index === source.index) return;
+         
   
         if (source.droppableId === 'InTransitList') {
             axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "received"})
@@ -68,11 +71,11 @@ const getMaterials = () =>{
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <section className="tables">
+            <section className="material-tables">
                 <Droppable droppableId="RecievedList">
                     {
                         (provided) => (
-                            <div className="recieved-table" ref={provided.innerRef}
+                            <div className="material-tables__recieved" ref={provided.innerRef}
                                 {...provided.droppableProps}>
                                 <JobMAterialTableHeader />
                                 {
@@ -88,16 +91,15 @@ const getMaterials = () =>{
                     }
 
                 </Droppable>
-
                 <Droppable droppableId="InTransitList" >
                     {
                         (provided) => (
-                            <div className="inTransit-table" ref={provided.innerRef}
+                            <div className="material-tables__inTransit" ref={provided.innerRef}
                                 {...provided.droppableProps}>
-                                <JobMAterialTableHeader />
+                                <IntransitHeader />
                                 {
                                     inTransitMaterial.map((material: Material, index) => {
-                                        return <JobMaterialsRow key={material.material_id}
+                                        return <IntransitTable key={material.material_id}
                                             material={material}
                                             index={index} />
                                     })

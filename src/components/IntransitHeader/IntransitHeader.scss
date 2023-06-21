@@ -1,6 +1,6 @@
 @use "../../styles/partials/mixins" as *;
 
-.materials-table{
+.intransit-table{
 
   
     &__header {
@@ -24,7 +24,7 @@
     }
 
     &__title {
-        width: 16.66%; 
+        width: 25%; 
         padding: 0 0 0 1rem;
     }
 }

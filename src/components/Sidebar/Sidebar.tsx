@@ -9,15 +9,15 @@ import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
+import { GrMapLocation } from "react-icons/gr";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const menus = [
     { name: "dashboard", link: "/", icon: MdOutlineDashboard },
-    { name: "user", link: "/", icon: AiOutlineUser },
-    { name: "messages", link: "/", icon: FiMessageSquare },
+    { name: "Manage Yard", link: "/locations", icon: GrMapLocation },
     { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
-    { name: "File Manager", link: "/", icon: FiFolder },
+    { name: "Employees", link: "/", icon: AiOutlineUser },
     { name: "Cart", link: "/", icon: FiShoppingCart },
     { name: "Setting", link: "/", icon: RiSettings4Line },
   ];

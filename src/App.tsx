@@ -8,6 +8,7 @@ import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 
 import"./App.scss";
+import LocationPage from "./pages/LocationPage/LocationPage";
 function App() {
 
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<WorkOrderPage />} />
         <Route path="/workOrder/:id" element={<WorkOrderDetailsPage />} />
+        <Route path="/locations" element={<LocationPage/>}/>
       </Routes>
       </div>
     </BrowserRouter>

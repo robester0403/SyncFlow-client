@@ -1,28 +1,30 @@
 // TOOLS
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 // Components
 import WorkOrderPageHeader from "../../components/WorkOrderPageHeader/WorkOrderPageHeader";
 import WorkOrderTableRow from "../../components/WorkOrderTableRow/WorkOrderTableRow";
-import { WorkOrder } from "../../interface";
+import { WorkOrder } from "../../model";
 
 import "./WorkOrderPage.scss"
 
 
 const WorkOrderPage = () => {
- const[workOrders , setWorkOrders] = useState<WorkOrder[]>([])
- const [loading,setLoading] = useState<boolean>(true)
+
+ const[workOrders , setWorkOrders] = useState<WorkOrder[]>()
+ 
   useEffect(() =>{
-   axios.get("http://localhost:8080/workorders")
+   axios.get("http://localhost:8080/workoders")
    .then((res) =>{
       setWorkOrders(res.data);
-      setLoading(false);
    })
   },[])
 
-  if(loading){
+  if(!workOrders){
     return <div>Loading....</div>
   }
+
 
   return (
     <section className="container">
