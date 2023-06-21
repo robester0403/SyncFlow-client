@@ -6,7 +6,7 @@ import "./WorkOrdersDetails.scss"
 const WorkOrderDetailsPage = () => {
    
   return (
-    <section >
+    <section className="work-order__details-page">
       <WorkOrderDetails/>   
       <JobMaterialTable/>
     </section>

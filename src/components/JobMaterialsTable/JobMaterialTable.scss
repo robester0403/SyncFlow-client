@@ -1,13 +1,17 @@
+@use "../../styles/partials/variables" as *;
+
 .material-tables{
     display: flex;
     gap: 2rem;
-    margin: 2rem 0 0;
+    border-radius: .5rem;
     width: 100%;
+    justify-content: center; 
     &__recieved{
         width: 50%;
     }
 
     &__inTransit{
-        width: 40%;
+        background-color: white;
+        width: 50%;
     }
 }

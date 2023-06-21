@@ -3,14 +3,14 @@
 
 
 .material-row {
-
+    background-color: white;
     display: flex;
     flex-wrap: wrap;
     display: flex;
     width: 100%;
     flex-wrap: wrap;
     border-bottom: 1px solid #bdc5d5;
-    margin: 0 1rem;
+   
 
  
 
@@ -24,7 +24,7 @@
         font-weight: 500;
 
         @include tablet {
-            width: 16.66%;
+            width: 20%;
         }
 
     }

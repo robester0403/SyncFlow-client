@@ -1,15 +1,44 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
+.order-details-header{
+display: flex;
+background-color: $white;
+justify-content: space-between;
+align-items: center;
+padding:0 2rem;
+height: 5.8125rem;
+border-bottom: 1px solid $cloud;
+border-radius: .5rem;
+
+  &__name{
+    font-style: normal;
+font-weight: 600;
+font-size: 32px;
+line-height: 40px;
+  }
+
+  &__button{
+    @include button;
+    width: 15rem;
+    color: white;
+     
+    background-color:#101540 ;
+  }
+}
+
+
+
+
+
+
+
 .order-details {
 
     background-color:$white;
-    border-radius: .5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem; 
-    margin: 1rem ;
-    border: solid 1px $cloud;
     padding: 1rem;
     
     @include tablet{
@@ -17,11 +46,7 @@
         justify-content: space-between;
       }
   
-   
-    @include desktop {
-      width:63.75rem;
-      margin :  0 auto;
-    }
+  
   
     &__divider{
         display: flex;
@@ -31,46 +56,20 @@
         @include tablet{
             width: 50%;
         } 
-   
+     
+
          
     }
+
+    &__label {
+         font-style: normal;
+         font-weight: 600;
+         font-size: 15px;
+          line-height: 18px;
+          text-transform: uppercase;
+
+      }
   
-//   &__box {
-//       padding: 1rem;
-//       font-size: 0.75rem;
-//       border-bottom: 1px solid cloud;
-
-//       @include tablet {
-//         padding: 2rem;
-//         font-size: 0.875rem;
-//         display: flex;
-//         align-items: flex-start;
-//         justify-content: space-between;
-//         border-bottom: none;
-//       }
-
-//       &-label {
-//           color: $slate;
-//           margin-bottom: 0;
-//           text-transform: uppercase;
-//       }
-
-//       &-info {
-//           display: flex;
-//           flex-direction: row;
-//           align-items: center;
-//           justify-content: space-between;
-//           padding-top: 2rem;
-//           flex-basis: 60%;
-
-//           @include tablet {
-//             padding-top: 0;
-//           }
-
-//       }
-      
-
-//   }
 
   
 }

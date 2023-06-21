@@ -65,6 +65,25 @@ const getMaterials = () =>{
               })
         }
 
+        // let add,
+        // inTransit =  inTransitMaterial,
+        // recieved  =recievedJobMaterial;
+        // if(source.droppableId === 'InTransitList' ){
+        //   add = inTransit[source.index];
+        //   inTransit.splice(source.index,1);
+        // }else{
+        //   add = recieved[source.index];
+        //   recieved.splice(source.index, 1);
+        // }
+
+        // if(destination.droppableId === 'InTransitList' ){
+        //   inTransit.splice(destination.index,0, add);
+        // }else{
+        //   recieved.splice(destination.index,0, add);
+        // }
+        // setIsTransitMaterial(inTransit);
+        // setRecievedJobMaterial(recieved)
+
     }
 
 

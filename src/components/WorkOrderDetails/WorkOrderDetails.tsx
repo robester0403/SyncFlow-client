@@ -1,17 +1,17 @@
 import axios from "axios";
 import { WorkOrder } from "../../model";
 import {useState,useEffect} from 'react';
-import { useParams } from "react-router-dom";
+import { useParams ,useNavigate } from "react-router-dom";
 
 import "./WorkOrderDetails.scss"
 
 const WorkOrderDetails:React.FC  = () => {
-      
+    const navigate = useNavigate();  
     const [workOrder , setWorkOrder] = useState<WorkOrder>();
     const params = useParams();
     let id:string |undefined = params.id
 useEffect(() =>{
-    axios.get(`http://localhost:8080/workoders/${id}/workoder`)
+    axios.get(`http://localhost:8080/workorders/${id}/workoder`)
     .then((res) =>{ console.log(res)
                     setWorkOrder(res.data[0]);})
     .catch((err) =>{
@@ -26,11 +26,17 @@ useEffect(() =>{
 
 
     return (
+         <> 
+         <div className="order-details-header">
+          <p className="order-details-header__name"> Workorder Details</p>
+          <button className="order-details-header__button" onClick={() =>navigate("/addMaterial")}> Add Material</button>
+         </div>
         <div className="order-details">
           <div className="order-details__divider">
           <div className="order-details__box">
                 <p className="order-details__label">
                    Work Order Number
+
                 </p>
                 <p className="order-details__info">
                    {workOrder.workoder_Number}
@@ -78,6 +84,7 @@ useEffect(() =>{
             </div>
             </div>
         </div>
+        </>
     )
   }
 

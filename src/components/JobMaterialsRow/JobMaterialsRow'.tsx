@@ -11,7 +11,7 @@ interface Props {
 
 const JobMaterialsRow: React.FC<Props> = ({ material, index }) => {
 
-    const { location, material_number, quantity, receive_date, size, status, material_id } = material;
+    const { location, material_number, quantity, receive_date, size,  material_id } = material;
 
     return (
         <Draggable draggableId={material_id.toString()} index={index}>
@@ -31,10 +31,7 @@ const JobMaterialsRow: React.FC<Props> = ({ material, index }) => {
                         <div className="material-row__mobile-heading">Size</div>
                         {size}
                     </div>
-                    <div className="material-row__column ">
-                        <div className="material-row__mobile-heading">Status</div>
-                        {status}
-                    </div>
+                   
                     <div className="material-row__column ">
                         <div className="material-row__mobile-heading">Date Recieved</div>
                         {receive_date ? receive_date.substring(0, 10) : "---"}
