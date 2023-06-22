@@ -18,3 +18,9 @@ export interface Material {
   status: string;
   work_order_id: number;
 }  
+
+
+export  interface Locations{
+  location_id:number;
+  location : string;
+ }
