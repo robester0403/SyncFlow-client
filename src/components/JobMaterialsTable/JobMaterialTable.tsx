@@ -48,41 +48,43 @@ const getMaterials = () =>{
         const { source, destination } = result;
 
         if (!destination) return;
-        if (destination.droppableId === source.droppableId) return;
-        if  (destination.index === source.index) return;
+        if (destination.droppableId === source.droppableId || destination.index === source.index) return;
          
   
-        if (source.droppableId === 'InTransitList') {
-            axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "received"})
-            .then(() =>{
-                getMaterials() 
-            })
+        // if (source.droppableId === 'InTransitList') {
+        //     axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "received"})
+        //     .then(() =>{
+        //         getMaterials() 
+        //     })
           
-        } else {
-            axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "in-transit"})
-            .then(() =>{
-                getMaterials() 
-              })
+        // } else {
+        //     axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "in-transit"})
+        //     .then(() =>{
+        //         getMaterials() 
+        //       })
+        // }
+
+        let add,
+        inTransit =  inTransitMaterial,
+        recieved  =recievedJobMaterial;
+        if(source.droppableId === 'InTransitList' ){
+          add = inTransit[source.index];
+          axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "received"})
+          inTransit.splice(source.index,1);
+        }else{
+            axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "in-transit"})   
+          add = recieved[source.index];
+          recieved.splice(source.index, 1);
         }
 
-        // let add,
-        // inTransit =  inTransitMaterial,
-        // recieved  =recievedJobMaterial;
-        // if(source.droppableId === 'InTransitList' ){
-        //   add = inTransit[source.index];
-        //   inTransit.splice(source.index,1);
-        // }else{
-        //   add = recieved[source.index];
-        //   recieved.splice(source.index, 1);
-        // }
-
-        // if(destination.droppableId === 'InTransitList' ){
-        //   inTransit.splice(destination.index,0, add);
-        // }else{
-        //   recieved.splice(destination.index,0, add);
-        // }
-        // setIsTransitMaterial(inTransit);
-        // setRecievedJobMaterial(recieved)
+        if(destination.droppableId === 'InTransitList' ){
+      
+          inTransit.splice(destination.index,0, add);
+        }else{
+          recieved.splice(destination.index,0, add);
+        }
+        setIsTransitMaterial(inTransit);
+        setRecievedJobMaterial(recieved)
 
     }
 

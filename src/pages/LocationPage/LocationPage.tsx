@@ -1,28 +1,42 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./LocationPage.scss";
-import { Material } from "../../model";
 import LocationComponent from "../../components/LocationComponent/LocationComponent";
 import { DragDropContext, Droppable,  } from "react-beautiful-dnd";
-
+ interface Locations{
+  location_id:number;
+  location : string;
+ }
 
 const LocationPage = () => {
-  const [materials,setMaterials] = useState<Material[]>([])
+  const [locations,setLocations] = useState<Locations[]>()
   useEffect(() =>{
-    axios.get('http://localhost:8080/materials')
+    axios.get('http://localhost:8080/location')
     .then((res) => {
-       setMaterials(res.data)
+       setLocations(res.data)
     })
   },[])
-if(!materials){
+if(!locations){
   return <div>Loading...</div>
+}
+
+const onDragEnd = () =>{
+ 
 }
 
 
   return (
-    <DragDropContext onDragEnd={() =>{}}>
+    <DragDropContext onDragEnd={onDragEnd}>
     <section className="location-table">
-      <Droppable droppableId="A">
+
+      {
+        locations.map((location,index ) =>{
+          return <LocationComponent location={location.location}
+                                    index ={index}
+                                    key={location.location_id}/>
+        })
+      }
+      {/* <Droppable droppableId="A">
          {
         (provided)=>(<div  ref={provided.innerRef}  {...provided.droppableProps}>
         <LocationComponent location  = "A"  />
@@ -83,7 +97,7 @@ if(!materials){
         {provided.placeholder}
         </div>)
       }
-      </Droppable>
+      </Droppable> */}
     </section>
     </DragDropContext>
   )
