@@ -1,0 +1,23 @@
+.location-container{
+    height: 15rem;
+    width: 20rem;
+    border-radius: .5rem;
+    flex: none;
+    background-color: white;
+    text-align: center;
+   
+
+   &__materials{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+   }
+  
+
+   &__material{
+   width: 45%;
+   border : 1px solid black;
+   border-radius: .5rem;
+   } 
+}
