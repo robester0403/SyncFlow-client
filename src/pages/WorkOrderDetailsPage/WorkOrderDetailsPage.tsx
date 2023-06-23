@@ -14,7 +14,7 @@ const WorkOrderDetailsPage = () => {
   return (
     <section className="work-order__details-page">
     {
-    openModal && (<IssuenceTableModal checkedMaterials={checkedMaterials}/>)
+    openModal && (<IssuenceTableModal checkedMaterials={checkedMaterials} setCheckedMaterials = {setCheckedMaterials}/>)
   }
   
       <WorkOrderDetails setOpenModal = {setOpenModal} checkedMaterials={checkedMaterials}/>   
