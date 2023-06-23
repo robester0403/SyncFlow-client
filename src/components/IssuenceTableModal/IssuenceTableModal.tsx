@@ -15,14 +15,11 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
         if (newValue > maxQuantity) {
             newValue = maxQuantity;
         }
-
         setQuantities((prev) => ({
             ...prev,
             [id]: newValue,
         }));
-
     };
-
 
     const onClickHandler = () => {
         let updatedMaterial: Material[] = [...checkedMaterials];
@@ -37,13 +34,18 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
                 return material;
             }
         });
+         
 
         updatedMaterial.forEach(eachMaterial => {
-            axios.put(`http://localhost:8080/materials/quantity/${eachMaterial.material_id}`, { quantity: eachMaterial.quantity })
-                .then(response => {
-                    // Handle response
-                    console.log(response);
-                })
+           const issuedMaterial  = {
+            material_number : eachMaterial.material_number,
+            quantity : eachMaterial.quantity,
+            size : eachMaterial.size,
+            receive_date: eachMaterial.receive_date,
+            work_order_id : eachMaterial.work_order_id
+           }
+            axios.post(`http://localhost:8080/materials/${eachMaterial.material_id}`, issuedMaterial)
+                .then(response => {console.log(response);})
                 .catch(err => console.log(err));
         });
 
@@ -91,7 +93,7 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
                         </div>
                     })
                 }
-                <button className="issuance-table__button" onClick={() => onClickHandler()} > Issue Material</button>
+                <button className="issuance-table__button"  onClick={() => onClickHandler()} > Issue Material</button>
             </div>
         </section>
     )
