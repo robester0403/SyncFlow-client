@@ -1,8 +1,17 @@
 @use "../../styles/partials/mixins" as *;
 
+.issuance-table{
+    
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    background-color:rgba(49,49,49,0.8);;
 
-
-.material-row {
+   &-row {
     background-color: white;
     display: flex;
     flex-wrap: wrap;
@@ -10,10 +19,6 @@
     width: 100%;
     flex-wrap: wrap;
     border-bottom: 1px solid #bdc5d5;
-   
-
- 
-
 
 
     &__column {
@@ -36,4 +41,11 @@
             display: none;
         }
     }
+}
+
+  &__button{
+    @include button;
+    background-color: blue;
+  }
+
 }

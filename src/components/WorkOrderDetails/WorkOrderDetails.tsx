@@ -1,11 +1,16 @@
 import axios from "axios";
-import { WorkOrder } from "../../model";
+import { Material, WorkOrder } from "../../model";
 import {useState,useEffect} from 'react';
 import { useParams ,useNavigate } from "react-router-dom";
 
 import "./WorkOrderDetails.scss"
 
-const WorkOrderDetails:React.FC  = () => {
+interface Props {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  checkedMaterials: Material[]
+}
+
+const WorkOrderDetails:React.FC<Props>  = ({setOpenModal,checkedMaterials} ) => {
     const navigate = useNavigate();  
     const [workOrder , setWorkOrder] = useState<WorkOrder>();
     const params = useParams();
@@ -23,20 +28,26 @@ useEffect(() =>{
         return <div>Loading...</div>
     }
      
+   const showModal = () =>{
+    if(!checkedMaterials) return;
+    setOpenModal(true)
+   } 
 
 
     return (
          <> 
          <div className="order-details-header">
           <p className="order-details-header__name"> Workorder Details</p>
+          <div>
+          <button className="order-details-header__button" onClick={() => showModal()} > Issue Material</button>
           <button className="order-details-header__button" onClick={() =>navigate("/addMaterial")}> Add Material</button>
+          </div>
          </div>
         <div className="order-details">
           <div className="order-details__divider">
           <div className="order-details__box">
                 <p className="order-details__label">
                    Work Order Number
-
                 </p>
                 <p className="order-details__info">
                    {workOrder.workoder_Number}

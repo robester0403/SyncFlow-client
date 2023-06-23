@@ -11,12 +11,15 @@ import "./JobMaterialTable.scss"
 import IntransitTable from "../IntransitTable/IntransitTable";
 import IntransitHeader from "../IntransitHeader/IntransitHeader";
 
+interface Props{
+    setCheckedMaterials : React.Dispatch<React.SetStateAction<Material[]>>
+}
 
 
-const JobMaterialTable = () => {
+const JobMaterialTable : React.FC<Props> = ({setCheckedMaterials}) => {
     const params = useParams();
     const [recievedJobMaterial, setRecievedJobMaterial] = useState<Material[]>([]);
-    const [inTransitMaterial, setIsTransitMaterial] = useState<Material[]>([]);
+    const [inTransitMaterial, setIsTransitMaterial] = useState<Material[]>([]);   
     const [isLoading, setIsLoading] = useState<boolean>(true)
 const getMaterials = () =>{
     axios.get(`http://localhost:8080/materials/${params.id}`)
@@ -88,8 +91,6 @@ const getMaterials = () =>{
 
     }
 
-
-
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <section className="material-tables">
@@ -102,8 +103,11 @@ const getMaterials = () =>{
                                 {
                                     recievedJobMaterial.map((material: Material, index) => {
                                         return <JobMaterialsRow key={material.material_id}
-                                            material={material}
-                                            index={index} />
+                                                                 material={material}
+                                                                 index={index} 
+                                                                 setCheckedMaterials={setCheckedMaterials}
+                                                                 />
+                                                                
                                     })
                                 }
                                 {provided.placeholder}

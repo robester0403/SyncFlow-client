@@ -6,12 +6,25 @@ import { Draggable } from 'react-beautiful-dnd';
 interface Props {
     material: Material;
     index: number;
+    setCheckedMaterials :React.Dispatch<React.SetStateAction<Material[]>>
 }
 
 
-const JobMaterialsRow: React.FC<Props> = ({ material, index }) => {
+const JobMaterialsRow: React.FC<Props> = ({ material, index ,setCheckedMaterials}) => {
 
     const { location, material_number, quantity, receive_date, size,  material_id } = material;
+
+    const handleCheckedMaterial = (event: React.ChangeEvent<HTMLInputElement>) =>{
+           const isChecked = (event.target.checked)
+
+           setCheckedMaterials( prevCheckedMaterials => {
+            if(isChecked){
+                return [...prevCheckedMaterials , material]
+            } else {
+                return prevCheckedMaterials.filter(material => material.material_id !== material_id) 
+            }
+           })
+    }
 
     return (
         <Draggable draggableId={material_id.toString()} index={index}>
@@ -19,6 +32,12 @@ const JobMaterialsRow: React.FC<Props> = ({ material, index }) => {
                 <div className="material-row" {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               ref ={provided.innerRef}>
+                     <div className="material-row__column ">
+                        <div className="material-row__mobile-heading"></div>
+                        <input type="checkbox"
+                               onChange={handleCheckedMaterial}
+                               />
+                    </div>                           
                     <div className="material-row__column ">
                         <div className="material-row__mobile-heading">Material Number</div>
                         {material_number}
