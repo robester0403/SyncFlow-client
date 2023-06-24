@@ -7,10 +7,10 @@ const locationURL = "http://localhost:8080/location";
 
 
 
-export const getWorkOrders = async(id : string | undefined,setWorkOrder : React.Dispatch<React.SetStateAction<WorkOrder | undefined>>) =>{
+export const getWorkOrders = async(id : string | undefined) =>{
   try{
      const response = await axios.get(`${workOrderURL}/${id}/workoder`)
-     setWorkOrder(response.data[0])      
+     return response.data     
   }catch (err){
     console.log(err, "workOrders")
   }
@@ -48,9 +48,13 @@ export const updateMaterialStatus = async(draggableId :  string, updatedStatus :
 
 export const issueMaterial =async (materialId : number,issuedMaterial:IssuedMaterial) => {
     try {
-       const response=  await axios.post(`${materialURL}/${materialId}`,issuedMaterial)   
-        console.log(response)  
+      axios.post(`${materialURL}/${materialId}`,issuedMaterial)   
     } catch (error) {
         console.log(error, "Issue Material")
     }
+}
+
+export const getIssuedMaterial =async () => {
+    const response = await axios.get(materialURL + "/material/issued")
+    return response; 
 }

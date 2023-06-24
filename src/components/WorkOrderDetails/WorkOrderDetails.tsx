@@ -15,10 +15,17 @@ const WorkOrderDetails:React.FC<Props>  = ({setOpenModal,checkedMaterials} ) => 
     const navigate = useNavigate();  
     const [workOrder , setWorkOrder] = useState<WorkOrder>();
     const params = useParams();  
-    let id :string | undefined  = params.id
-  
+    let id :string |undefined = params.id
+     
+   
+
 useEffect(() =>{
-   getWorkOrders(id,setWorkOrder)          
+    const fetchWorkOrders = async() =>{
+     const response = await getWorkOrders(id)
+     console.log(response)
+      setWorkOrder(response[0])
+    }  
+    fetchWorkOrders()
     },[])
 
     if(!workOrder){

@@ -31,5 +31,6 @@ export interface IssuedMaterial {
     quantity: number;
     size: string;
     receive_date: string;
+
     work_order_id: number;
 } 
