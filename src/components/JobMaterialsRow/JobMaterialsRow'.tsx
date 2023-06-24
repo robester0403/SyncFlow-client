@@ -1,4 +1,5 @@
 
+
 import { Material } from "../../model"
 import "./JobMaterialsRow.scss"
 
@@ -28,13 +29,14 @@ const JobMaterialsRow: React.FC<Props> = ({ material, index ,setCheckedMaterials
 
     return (
         <Draggable draggableId={material_id.toString()} index={index}>
-            {(provided) => (
-                <div className="material-row" {...provided.draggableProps}
+            {(provided,snapshot) => (
+                <div className= {`material-row ${snapshot.isDragging ? 'dragging' : ""} `} {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               ref ={provided.innerRef}>
                      <div className="material-row__column ">
                         <div className="material-row__mobile-heading"></div>
-                        <input type="checkbox"
+                        <input className="material-row__checkbox"
+                               type="checkbox"
                                onChange={handleCheckedMaterial}
                                />
                     </div>                           

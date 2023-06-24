@@ -38,7 +38,7 @@ const Sidebar = () => {
             key={i}
             className={`sidebar__link ${menu?.margin && "sidebar__link--with-margin"} `}
           >
-            <div>{React.createElement(menu?.icon, { size: "20" })}</div>
+            <div className="icons">{React.createElement(menu?.icon, { size: "20" })}</div>
             <h2
               style={{transitionDelay: `${i + 3}00ms`}}
               className={`sidebar__link__name ${!open && "sidebar__link__name--hidden"}`}

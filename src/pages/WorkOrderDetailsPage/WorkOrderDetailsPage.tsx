@@ -10,15 +10,18 @@ import { Material } from "../../model";
 const WorkOrderDetailsPage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [checkedMaterials, setCheckedMaterials] = useState<Material[]>([]) 
-  console.log(checkedMaterials)
   return (
     <section className="work-order__details-page">
     {
-    openModal && (<IssuenceTableModal checkedMaterials={checkedMaterials} setCheckedMaterials = {setCheckedMaterials}/>)
+    openModal && (<IssuenceTableModal checkedMaterials={checkedMaterials}
+                                      setCheckedMaterials = {setCheckedMaterials}
+                                      setOpenModal = {setOpenModal} />)
   }
   
-      <WorkOrderDetails setOpenModal = {setOpenModal} checkedMaterials={checkedMaterials}/>   
-      <JobMaterialTable setCheckedMaterials ={setCheckedMaterials}/>
+      <WorkOrderDetails setOpenModal = {setOpenModal}
+                        checkedMaterials={checkedMaterials}/>   
+      <JobMaterialTable setCheckedMaterials ={setCheckedMaterials}
+                        checkedMaterials={checkedMaterials}/>
     </section>
 
   )

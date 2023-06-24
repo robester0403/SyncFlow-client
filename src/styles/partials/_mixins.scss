@@ -30,5 +30,10 @@
     border-radius: 2rem;
     border: none;
     cursor: pointer;
+    background-color: $color-secondary;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    &:hover{
+        background-color: $color-hover-primary;
+    }
   }
   

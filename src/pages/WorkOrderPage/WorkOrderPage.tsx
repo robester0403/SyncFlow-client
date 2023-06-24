@@ -28,9 +28,6 @@ const WorkOrderPage = () => {
     return <div>Loading....</div>
   }
 
-// useEffect(() =>{
-//   setWorkOrders(
-// },[])
 
 
   const onChangeHandler = (event : React.ChangeEvent<HTMLInputElement>) =>{

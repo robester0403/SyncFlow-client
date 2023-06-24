@@ -1,75 +1,75 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
-.order-details-header{
-display: flex;
-background-color: $white;
-justify-content: space-between;
-align-items: center;
-padding:0 2rem;
-height: 5.8125rem;
-border-bottom: 1px solid $cloud;
-border-radius: .5rem;
+.order-details-header {
+  display: flex;
+  background-color: $white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem;
+  box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+  border-radius: .5rem;
+  margin: 2rem 0;
 
-  &__name{
+  &__name {
     font-style: normal;
-font-weight: 600;
-font-size: 32px;
-line-height: 40px;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 40px;
   }
 
-  &__button{
+  &__button {
     @include button;
     width: 15rem;
     color: white;
-     
-    background-color:#101540 ;
+
+    &:disabled {
+      background-color: $color-secondary;
+      opacity: 0.4;
+    }
   }
 }
 
 
-
-
-
-
-
 .order-details {
+  box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
 
-    background-color:$white;
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+
+
+  &__divider {
     display: flex;
     flex-direction: column;
-    gap: 1rem; 
-    padding: 1rem;
-    
-    @include tablet{
-        flex-direction: row; 
-        justify-content: space-between;
-      }
-  
-  
-  
-    &__divider{
-        display: flex;
-        flex-direction: column;
-         gap : 1rem;
-        
-        @include tablet{
-            width: 50%;
-        } 
-     
+    gap: 1rem;
 
-         
+    @include tablet {
+      width: 50%;
     }
 
-    &__label {
-         font-style: normal;
-         font-weight: 600;
-         font-size: 15px;
-          line-height: 18px;
-          text-transform: uppercase;
 
-      }
-  
 
-  
+  }
+
+  &__label {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    text-transform: uppercase;
+
+  }
+
+
+
 }

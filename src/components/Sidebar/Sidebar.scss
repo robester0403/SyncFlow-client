@@ -1,9 +1,11 @@
+@use "../../styles/partials/variables" as *;
+
 .sidebar {
   display: flex;
   gap: 6rem;
   
   &__main {
-    background: #101540;;
+    background: $color-primary;;
     min-height: 100vh;
     transition: width 0.5s;
     color: #f8f8f8;
@@ -85,4 +87,8 @@
       }
     }
   }
+}
+
+.icons{
+  color: $white;
 }

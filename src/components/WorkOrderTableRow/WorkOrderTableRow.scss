@@ -1,4 +1,5 @@
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
 
 
 
@@ -9,10 +10,16 @@
 
 
     &__row {
+            cursor: pointer;
             display: flex;
             width: 100%;
             flex-wrap: wrap;
             border-bottom: 1px solid  #bdc5d5 ;
+
+            &:hover{
+                background-color: #e4e6e9;
+                transition: 0.2sec;
+            }
     
         &__column {
             width: 50%;

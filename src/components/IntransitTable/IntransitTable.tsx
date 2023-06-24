@@ -15,13 +15,11 @@ const IntransitTable :React.FC<Props> = ({ material, index }) => {
     const {  material_number, quantity,  size, status, material_id } = material;
   return (
    
-   
-   
-   
 
         <Draggable draggableId={material_id.toString()} index={index}>
-            {(provided) => (
-                <div className="intransit-row" {...provided.draggableProps}
+            {(provided,snapshot) => (
+                <div className={`material-row ${snapshot.isDragging ? 'dragging' : ''}`}
+                                              {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               ref ={provided.innerRef}>
                     <div className="intransit-row__column ">

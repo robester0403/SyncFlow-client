@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IssuedMaterial, Material, WorkOrder } from "../model";
+import { IssuedMaterial} from "../model";
 
 const materialURL = "http://localhost:8080/materials";
 const workOrderURL = "http://localhost:8080/workorders";
@@ -16,22 +16,10 @@ export const getWorkOrders = async(id : string | undefined) =>{
   }
 }
 
-export const getMaterials =async (id : string  | undefined,
-                                   setRecievedJobMaterial :React.Dispatch<React.SetStateAction<Material[]>>,
-                                   setIsTransitMaterial :  React.Dispatch<React.SetStateAction<Material[]>>,
-                                   setIsLoading :  React.Dispatch<React.SetStateAction<boolean>>) =>{
+export const getMaterials =async (id : string  | undefined) =>{
     try {
         const  response = await axios.get(`${materialURL}/${id}`)
-      
-        setRecievedJobMaterial(response.data.filter((material: Material) => {
-            return material.status === "received"
-        }));
-
-        setIsTransitMaterial(response.data.filter((material: Material) => {
-            return material.status !== "received"
-        }))
-
-        setIsLoading(false)
+       return response.data
     } catch (error) {
         console.log(error ,"")
     }
