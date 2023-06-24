@@ -1,4 +1,4 @@
-import axios from "axios";
+import { getMaterials, updateMaterialStatus } from "../../utils/api";
 import JobMAterialTableHeader from "../JobMaterialTableHeader/JobMAterialTableHeader";
 import JobMaterialsRow from "../JobMaterialsRow/JobMaterialsRow'";
 import { useEffect, useState } from 'react';
@@ -21,26 +21,9 @@ const JobMaterialTable : React.FC<Props> = ({setCheckedMaterials}) => {
     const [recievedJobMaterial, setRecievedJobMaterial] = useState<Material[]>([]);
     const [inTransitMaterial, setIsTransitMaterial] = useState<Material[]>([]);   
     const [isLoading, setIsLoading] = useState<boolean>(true)
-const getMaterials = () =>{
-    axios.get(`http://localhost:8080/materials/${params.id}`)
-    .then((res) => {
-        console.log(res)
-        setRecievedJobMaterial(res.data.filter((material: Material) => {
-            return material.status === "received"
-        }));
-
-        setIsTransitMaterial(res.data.filter((material: Material) => {
-            return material.status !== "received"
-        }))
-
-        setIsLoading(false)
-    }).catch((err) =>{
-        console.log(err)
-    })
-}
-
+     const {id } = params
     useEffect(() => {
-       getMaterials()
+       getMaterials(id,setRecievedJobMaterial,setIsTransitMaterial,setIsLoading)
     }, [])
 
     if (isLoading) {
@@ -72,10 +55,10 @@ const getMaterials = () =>{
         recieved  =recievedJobMaterial;
         if(source.droppableId === 'InTransitList' ){
           add = inTransit[source.index];
-          axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "received"})
+          updateMaterialStatus(result.draggableId,{status : "received"})
           inTransit.splice(source.index,1);
         }else{
-            axios.put(`http://localhost:8080/materials/${result.draggableId}`,{status : "in-transit"})   
+            updateMaterialStatus(result.draggableId,{status : "in-transit"})
           add = recieved[source.index];
           recieved.splice(source.index, 1);
         }

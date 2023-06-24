@@ -1,9 +1,10 @@
-import axios from "axios";
+
 import { Material, WorkOrder } from "../../model";
 import {useState,useEffect} from 'react';
 import { useParams ,useNavigate } from "react-router-dom";
 
 import "./WorkOrderDetails.scss"
+import { getWorkOrders } from "../../utils/api";
 
 interface Props {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,15 +14,11 @@ interface Props {
 const WorkOrderDetails:React.FC<Props>  = ({setOpenModal,checkedMaterials} ) => {
     const navigate = useNavigate();  
     const [workOrder , setWorkOrder] = useState<WorkOrder>();
-    const params = useParams();
-    let id:string |undefined = params.id
+    const params = useParams();  
+    let id :string | undefined  = params.id
+  
 useEffect(() =>{
-    axios.get(`http://localhost:8080/workorders/${id}/workoder`)
-    .then((res) =>{ console.log(res)
-                    setWorkOrder(res.data[0]);})
-    .catch((err) =>{
-       console.log(err,"details")
-    })                  
+   getWorkOrders(id,setWorkOrder)          
     },[])
 
     if(!workOrder){

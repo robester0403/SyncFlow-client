@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { Material } from "../../model"
+import { IssuedMaterial, Material } from "../../model"
 import "./IssuanceTableModal.scss"
-import axios from "axios";
+import { issueMaterial } from "../../utils/api";
 interface Props {
     checkedMaterials: Material[];
     setCheckedMaterials: React.Dispatch<React.SetStateAction<Material[]>>;
@@ -37,19 +37,15 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
          
 
         updatedMaterial.forEach(eachMaterial => {
-           const issuedMaterial  = {
+           const issuedMaterial : IssuedMaterial = {
             material_number : eachMaterial.material_number,
             quantity : eachMaterial.quantity,
             size : eachMaterial.size,
             receive_date: eachMaterial.receive_date,
             work_order_id : eachMaterial.work_order_id
            }
-            axios.post(`http://localhost:8080/materials/${eachMaterial.material_id}`, issuedMaterial)
-                .then(response => {console.log(response);})
-                .catch(err => console.log(err));
+           issueMaterial(eachMaterial.material_id,issuedMaterial)
         });
-
-        // Clear checked materials after issuance
         setCheckedMaterials([]);
     }
 

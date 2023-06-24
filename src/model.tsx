@@ -24,3 +24,12 @@ export  interface Locations{
   location_id:number;
   location : string;
  }
+
+
+export interface IssuedMaterial {
+  material_number: string;
+    quantity: number;
+    size: string;
+    receive_date: string;
+    work_order_id: number;
+} 

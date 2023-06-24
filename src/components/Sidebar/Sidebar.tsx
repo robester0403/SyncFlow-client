@@ -16,7 +16,7 @@ const Sidebar = () => {
   const menus = [
     { name: "dashboard", link: "/", icon: MdOutlineDashboard },
     { name: "Manage Yard", link: "/locations", icon: GrMapLocation },
-    { name: "Issuance Log", link: "/", icon: TbReportAnalytics, margin: true },
+    { name: "Issuance Log", link: "/issuanceLog", icon: TbReportAnalytics, margin: true },
     { name: "Employees", link: "/", icon: AiOutlineUser },
     { name: "", link: "/", icon: FiFolder },
     { name: "Setting", link: "/", icon: RiSettings4Line },
