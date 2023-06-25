@@ -8,7 +8,6 @@ interface Props {
     setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
 const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMaterials ,setOpenModal}) => {
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
     const onChangeHandler = (id: number, maxQuantity: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +57,6 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
         setCheckedMaterials([]);
         setOpenModal(false)
     }
-
 
     return (
         <div className="issuance" >

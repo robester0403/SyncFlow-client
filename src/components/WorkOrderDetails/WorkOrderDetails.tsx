@@ -1,29 +1,16 @@
 
 import { Material, WorkOrder } from "../../model";
-import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
-
 import "./WorkOrderDetails.scss"
-import { getWorkOrders } from "../../utils/api";
+
 
 interface Props {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-  checkedMaterials: Material[]
+  checkedMaterials: Material[];
+  workOrder : WorkOrder | undefined;
 }
 
-const WorkOrderDetails: React.FC<Props> = ({ setOpenModal, checkedMaterials }) => {
-  const [workOrder, setWorkOrder] = useState<WorkOrder>();
-  const params = useParams();
-  let id: string | undefined = params.id
+const WorkOrderDetails: React.FC<Props> = ({ setOpenModal, checkedMaterials ,workOrder}) => {
 
-
-  useEffect(() => {
-    const fetchWorkOrders = async () => {
-      const response = await getWorkOrders(id)
-      setWorkOrder(response[0])
-    }
-    fetchWorkOrders()
-  }, [])
 
   if (!workOrder) {
     return <div>Loading...</div>

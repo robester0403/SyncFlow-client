@@ -7,7 +7,7 @@ import WorkOrderDetailsPage from "./pages/WorkOrderDetailsPage/WorkOrderDetailsP
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 
-import"./App.scss";
+import "./App.scss";
 import LocationPage from "./pages/LocationPage/LocationPage";
 import IssuanceLog from "./pages/IssuanceLog/IssuanceLog";
 function App() {
@@ -16,13 +16,13 @@ function App() {
     <BrowserRouter>
       <Header />
       <div className="sideBar">
-      <Sidebar />
-      <Routes>
-        <Route path="/" element={<WorkOrderPage />} />
-        <Route path="/workOrder/:id" element={<WorkOrderDetailsPage />} />
-        <Route path="/locations" element={<LocationPage/>}/>
-        <Route path="/issuanceLog" element={<IssuanceLog/>}/>
-      </Routes>
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<WorkOrderPage />} />
+          <Route path="/workOrder/:id" element={<WorkOrderDetailsPage />} />
+          <Route path="/locations" element={<LocationPage />} />
+          <Route path="/issuanceLog" element={<IssuanceLog />} />
+        </Routes>
       </div>
     </BrowserRouter>
   )

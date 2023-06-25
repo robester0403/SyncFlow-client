@@ -37,7 +37,7 @@ const JobMaterialTable: React.FC<Props> = ({ setCheckedMaterials, checkedMateria
             setIsLoading(false)
         }
         fetchMaterials()
-    }, [checkedMaterials])
+    }, [])
 
     if (isLoading) {
         return <div>Loading....</div>

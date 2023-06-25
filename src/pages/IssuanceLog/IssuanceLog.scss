@@ -1,8 +1,9 @@
 @use "../../styles/partials/mixins" as *;
 
 .issuance-log-table{
+     width: 80%;
+     margin: 0 auto;
     
-   
     &__header {
         display: none;
 
