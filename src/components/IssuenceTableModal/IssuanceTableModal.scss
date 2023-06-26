@@ -1,0 +1,174 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.issuance {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background-color: rgba(49, 49, 49, 0.8);
+  &__cross-icon{
+    left: 88%;
+    padding-top: 3rem;
+    font-size: 2rem;
+    position: relative;
+    color:white;
+    cursor: pointer;
+  }
+}
+
+
+
+.issuance-table {
+
+  width: 80%;
+  margin: 6rem auto;
+  
+  &__header {
+    display: none;
+
+    @include tablet {
+      display: flex;
+      padding: 1.25rem 0;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 18px;
+      text-align: left;
+      color: #2d3748;
+      background-color: #f7fafc;
+      text-transform: uppercase;
+      border-radius: 0.5rem;
+      // border-bottom: 1px solid #4a5568;
+    }
+  }
+
+  &__title {
+    width: 20%;
+    padding: 0 0 0 1rem;
+  }
+
+  &-row {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #bdc5d5;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+
+    &__column {
+      width: 50%;
+      padding: 1.25rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+
+      @include tablet {
+        width: 20%;
+      }
+
+      &-quantity {
+        width: 50%;
+        border: none;
+        border-bottom: 1px solid $cloud ;
+        background-color: transparent;
+        padding-left: 0.25rem;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+        &--error{
+          border: 5px solid red;
+        }      
+   
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 3px #888;
+        }
+        &::placeholder {
+            color: #888;
+            font-weight: normal;
+          }
+    
+      }
+    }
+
+    &__mobile-heading {
+      font-weight: bold;
+
+      @include tablet {
+        display: none;
+      }
+    }
+  }
+&__submit-container{
+  display: flex;
+  @include tablet{
+    flex-direction: column;
+  }
+  @include desktop{
+    flex-direction: row;
+  
+  }
+} 
+
+&__employee-title{
+  font-weight: bold;
+}
+
+&__employee-label{
+ display: flex;
+ gap: 1rem;
+ font-weight: 500;
+}
+
+&__employee-checkbox{
+  appearance: none;
+  cursor: pointer;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: .125rem solid $color-secondary;
+  margin-top: .375rem;
+  border-radius: .1875rem;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  
+
+  &:checked {
+      background-color: $color-secondary;
+  }
+
+  &:focus {
+      outline: none;
+      box-shadow: 0 0 .1875rem #888;
+  }
+
+}
+
+  &__employee-name{
+   background-color: $white;
+   display:flex;
+   gap: 2rem;
+   flex: none;
+   font-size: 1.2rem;
+   padding: 1rem;
+   border-radius: .5rem
+  }
+
+
+
+
+  &__button {
+    @include button;
+    flex: none;
+    margin:1rem 1rem 0rem 25%;
+    color: $white;
+    font-size: 1.3rem;
+
+    @include desktop{
+      width: 36%;
+    }
+  }
+}

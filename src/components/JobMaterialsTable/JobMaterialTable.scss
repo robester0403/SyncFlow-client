@@ -1,0 +1,29 @@
+@use "../../styles/partials/variables" as *;
+
+.material-tables {
+    display: flex;
+
+    gap: 2rem;
+    border-radius: .5rem;
+    width: 100%;
+    justify-content: center;
+
+    &__recieved {
+        background-color: white;
+        width: 50%;
+        box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+        border-radius: .8rem;
+    }
+
+    &__inTransit {
+        background-color: white;
+        width: 50%;
+        box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+        border-radius: 0.8rem;
+    }
+}
+
+.dragging-over {
+    background-color: #ddd;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}

@@ -1,0 +1,30 @@
+// Responsive design breakpoints
+$tablet-breakpoint : 768px;
+$desktop-breakpoint : 1280px;
+
+/*
+COLOR VARIABLES
+*/
+//Primary
+$primary-text: #212121; //global text
+$white: #ffffff; //gloabl white
+
+//Secondary
+$slate: #5c667e; 
+$cloud: #bdc5d5; 
+
+//Background
+$graphite: #232940; //top nav header bg, CTA button hover state bg
+$light-grey: #f7f8f9; //page bg, table col header bg, CTA bg
+
+//Supporting
+$green: #158463;
+$red: #c94515;
+$color-background: #F5F5F5; /* Light gray for neutral backdrop */
+$color-primary: #0D47A1; /* Strong blue for sidebar, header, footer */
+$color-secondary: #1976D2; /* Lighter blue for buttons, highlights */
+$color-accent: #FFC107; /* Amber for links, selected menu items */
+
+$color-hover-background: #BBDEFB; /* Light blue for hover background */
+$color-hover-primary: #1565C0; /* Darker shade of primary color for hover */
+$color-hover-secondary: #1E88E5; /* Darker shade of secondary color for hover */

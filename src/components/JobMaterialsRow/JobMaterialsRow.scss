@@ -1,0 +1,66 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+
+.material-row {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #bdc5d5;
+    &:hover{
+        background-color: #f6f6f6;
+    }
+
+    &__checkbox {
+        appearance: none;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        border: 2px solid $color-secondary;
+        border-radius: 3px;
+        background-color: #fff;
+        transition: all 0.3s ease;
+
+        &:checked {
+            background-color: $color-secondary;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 3px #888;
+        }
+
+    }
+
+    &__column {
+        width: 50%;
+        padding: 1.25rem 1rem;
+
+        font-size: .875rem;
+        font-weight: 500;
+
+        @include tablet {
+            width: 16.666%;
+        }
+
+    }
+
+    &__mobile-heading {
+        font-weight: bold;
+
+        @include tablet {
+            display: none;
+        }
+    }
+}
+
+.dragging {
+    background-color: #eee;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transform: scale(1.05);
+}

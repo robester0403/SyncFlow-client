@@ -1,0 +1,39 @@
+@use "./variables" as * ;
+
+// responsive design breakpoint mixins
+
+@mixin tablet{
+    @media(min-width :$tablet-breakpoint){
+        @content;
+    }
+}
+
+@mixin desktop{
+    @media(min-width : $desktop-breakpoint){
+        @content;
+    }
+}
+
+//
+
+@mixin desktop-layout{
+    margin: 0 auto;
+    width: 63.75rem;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+@mixin button {
+    height: 2.35rem;
+    width :  40%;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+    background-color: $color-secondary;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    &:hover{
+        background-color: $color-hover-primary;
+    }
+  }
+  

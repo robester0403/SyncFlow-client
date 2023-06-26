@@ -1,0 +1,44 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+
+
+.work-order-table {
+
+    display: flex;
+    flex-wrap: wrap;
+
+
+    &__row {
+            cursor: pointer;
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            border-bottom: 1px solid  #bdc5d5 ;
+
+            &:hover{
+                background-color: #e4e6e9;
+                transition: 0.2sec;
+            }
+    
+        &__column {
+            width: 50%;
+            padding: 1.25rem 1rem; 
+       
+            font-size: .875rem; 
+            font-weight: 500;
+            
+            @include tablet{
+            width: 25%; 
+            }
+           
+        }
+    }
+
+    &__mobile-heading{
+        font-weight: bold;
+        @include tablet{
+            display: none;
+        }
+      }   
+}
