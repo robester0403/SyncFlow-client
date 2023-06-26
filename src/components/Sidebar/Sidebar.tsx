@@ -5,21 +5,20 @@ import "./Sidebar.scss"
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser } from "react-icons/ai";
 import {  FiFolder} from "react-icons/fi";
-import { GrMapLocation } from "react-icons/gr";
 import { Link } from "react-router-dom";
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
   const menus = [
     { name: "dashboard", link: "/", icon: MdOutlineDashboard },
-    { name: "Manage Yard", link: "/locations", icon: GrMapLocation },
+    { name: "Manage Yard", link: "/locations", icon: FaMapMarkerAlt },
     { name: "Issuance Log", link: "/issuanceLog", icon: TbReportAnalytics, margin: true },
-    { name: "Employees", link: "/", icon: AiOutlineUser },
+    { name: "Employees", link: "/EmployeeData", icon: AiOutlineUser },
     { name: "WorkOrders", link: "/workorders", icon: FiFolder },
-    { name: "Setting", link: "/", icon: RiSettings4Line },
+
   ];
   const [open, setOpen] = useState(true);
   return (

@@ -69,8 +69,10 @@
         font-size: 1rem;
         font-weight: bold;
         color: #333;
-        
-  
+        &--error{
+          border: 5px solid red;
+        }      
+   
         &:focus {
           outline: none;
           box-shadow: 0 0 3px #888;

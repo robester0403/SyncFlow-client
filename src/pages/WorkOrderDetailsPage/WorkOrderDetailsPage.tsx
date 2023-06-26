@@ -15,11 +15,19 @@ const WorkOrderDetailsPage = () => {
   const [checkedMaterials, setCheckedMaterials] = useState<Material[]>([]) 
   const [workOrder, setWorkOrder] = useState<WorkOrder>();
  const {id} = useParams()
+
+
+ const fetchWorkOrders = async () => {
+  try {
+    const response = await getWorkOrderDetails(id)
+    setWorkOrder(response[0])
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
   useEffect(() => {
-    const fetchWorkOrders = async () => {
-      const response = await getWorkOrderDetails(id)
-      setWorkOrder(response[0])
-    }
     fetchWorkOrders()
   }, [])
 
@@ -35,6 +43,7 @@ const WorkOrderDetailsPage = () => {
                                       setCheckedMaterials = {setCheckedMaterials}
                                       setOpenModal = {setOpenModal}
                                       employee = {workOrder.employee_name}
+                                      updateState = {fetchWorkOrders}
                                       />)
   }
   

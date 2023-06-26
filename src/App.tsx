@@ -11,6 +11,8 @@ import "./App.scss";
 import LocationPage from "./pages/LocationPage/LocationPage";
 import IssuanceLog from "./pages/IssuanceLog/IssuanceLog";
 import PendingWorkOrderPage from "./pages/PendingWorkOrderPage/PendingWorkOrderPage";
+import EmployeeData from "./pages/EmployeeData/EmployeeData";
+import NotFound from "./components/NotFound/NotFound";
 function App() {
 
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/locations" element={<LocationPage />} />
           <Route path="/issuanceLog" element={<IssuanceLog />} />
           <Route path= "/workorders" element={<PendingWorkOrderPage/>}/>
+          <Route path= "/employeeData" element={<EmployeeData/>}/>
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       </div>
     </BrowserRouter>

@@ -4,6 +4,7 @@ import "./IssuanceLog.scss";
 import { getIssuedMaterial } from "../../utils/api";
 import { IssuedMaterialLog } from "../../model";
 import Loading from "../../components/Loading/Loading";
+import TablesHeader from "../../components/TablesHeader/TablesHeader";
 
 
 
@@ -39,20 +40,8 @@ const IssuanceLog = () => {
 
   return (
     <section className="issuance-log">
-      <div className="issuance-log__header">
-        <h1 className="issuance-log__header__title">Issuance Log</h1>
-        <div className="issuance-log__search">
-          <input
-            type="text"
-            name="search"
-            id="search"
-            className="issuance-log__search-input"
-            placeholder="Search..."
-            value={searchField}
-            onChange={onChangeHandler}
-          />
-        </div>
-      </div>
+      <TablesHeader title="Issuance Log" searchField={searchField} onChangeHandler={onChangeHandler} />
+    
 
       <div className="issuance-log-table">
         <div className="issuance-log-table__header">

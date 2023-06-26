@@ -1,0 +1,12 @@
+@use "../../styles/partials/mixins" as *;
+
+.not-found{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  margin: auto;
+  &__button{
+     @include button
+  }
+}

@@ -13,6 +13,8 @@ interface Props {
 const PendingTableOrder: React.FC<Props> = ({ workOrders }) => {
   const [employees, setEmployees] = useState<Employee[]>();
   const [selectedEmployees, setSelectedEmployees] = useState<{ [key: number]: string }>({});
+  const [rowErrors, setRowErrors] = useState<{ [key: number]: boolean }>({});
+
   useEffect(() => {
     const fetchEmployees = async () => {
       const response = await getEmployees()
@@ -20,50 +22,68 @@ const PendingTableOrder: React.FC<Props> = ({ workOrders }) => {
     }
     fetchEmployees();
   }, [])
-   
+
   const handleSelectChange = (work_order_id: number, selectedEmployee: string) => {
     setSelectedEmployees(prev => ({ ...prev, [work_order_id]: selectedEmployee }));
+    setRowErrors(prev => ({ ...prev, [work_order_id]: false }));
   }
 
   if (!employees) {
-    return <Loading/>
+    return <Loading />
   }
-  
-  const onClickHandler = async(work_order_id:number) =>{
+
+  const onClickHandler = async (work_order_id: number) => {
     const employee = selectedEmployees[work_order_id];
-      initateWorkOrder({work_order_id : work_order_id ,employee_id : Number(employee) })
+    if (employee === "" || employee === undefined) {
+      setRowErrors(prev => ({ ...prev, [work_order_id]: true }));
+      return;
+    }
+    setRowErrors(prev => ({ ...prev, [work_order_id]: false }));
+    await initateWorkOrder({ work_order_id: work_order_id, employee_id: Number(employee) })
   }
- 
+
 
   return (
     <div className="start-workorder">
+         <div className="start-workorder__header">
+           <p className="start-workorder__title">WORKORDER NUMBER</p>
+           <p className="start-workorder__title">Client Name</p>
+           <p className="start-workorder__title">Job Name</p>
+           <p className="start-workorder__title">Assign Employee</p>
+           <p className="start-workorder__title"></p>
+         </div>
       {
-        workOrders.map(({ workorder_Number, client_name, project_name ,work_order_id}) => {
-          return <div className="work-order-table__row" key={workorder_Number}>
-            <div className="work-order-table__row__column ">
-              <div className="work-order-table__mobile-heading">JOB NUMBER</div>
+        workOrders.map(({ workorder_Number, client_name, project_name, work_order_id }) => {
+          return <div className="start-workorder__row" key={workorder_Number}>
+            <div className="start-workorder__row__column ">
+              <div className="start-workorder__mobile-heading">JOB NUMBER</div>
               {workorder_Number}
             </div>
-            <div className="work-order-table__row__column">
-              <div className="work-order-table__mobile-heading">CLIENT NAME</div>
+            <div className="start-workorder__row__column">
+              <div className="start-workorder__mobile-heading">CLIENT NAME</div>
               {client_name}
             </div>
-            <div className="work-order-table__row__column ">
-              <div className="work-order-table__mobile-heading">JOB NAME</div>
+            <div className="start-workorder__row__column ">
+              <div className="start-workorder__mobile-heading">JOB NAME</div>
               {project_name}
             </div>
-            <div className="work-order-table__row__column ">
-              <div className="work-order-table__mobile-heading">EMPLOYEE ASSIGNED</div>
-              <select onChange={(e) => handleSelectChange(work_order_id, e.target.value)}
-                placeholder="Select Employee"   >
+            <div className="start-workorder__row__column ">
+              <div className="start-workorder__mobile-heading">EMPLOYEE ASSIGNED</div>
+              <select value={selectedEmployees[work_order_id] || ''}
+                onChange={(e) => handleSelectChange(work_order_id, e.target.value)}
+                className={`start-workorder__select ${rowErrors[work_order_id] ? 'start-workorder__select--error' : ''}`}
+              >
+                <option value="" disabled >Select an Employee</option>
                 {employees.map(employee => (
-                  <option key={employee.employee_id} 
-                          value={employee.employee_id}>
-                           {employee.employee_name}</option>
+                  <option key={employee.employee_id}
+                    className="start-workorder__select-option"
+                    value={employee.employee_id}>
+                    {employee.employee_name}</option>
                 ))}
               </select>
             </div>
-            <button onClick={() => onClickHandler(work_order_id)}>Initate Order</button>
+            <button className="start-workorder__button"
+              onClick={() => onClickHandler(work_order_id)}>Start Order</button>
           </div>
         })
       }
