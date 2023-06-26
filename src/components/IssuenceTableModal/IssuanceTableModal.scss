@@ -10,7 +10,17 @@
   bottom: 0;
   position: fixed;
   background-color: rgba(49, 49, 49, 0.8);
+  &__cross-icon{
+    left: 88%;
+    padding-top: 3rem;
+    font-size: 2rem;
+    position: relative;
+    color:white;
+    cursor: pointer;
+  }
 }
+
+
 
 .issuance-table {
 
@@ -95,6 +105,13 @@
   }
 &__submit-container{
   display: flex;
+  @include tablet{
+    flex-direction: column;
+  }
+  @include desktop{
+    flex-direction: row;
+  
+  }
 } 
 
 &__employee-title{
@@ -149,5 +166,9 @@
     margin:1rem 1rem 0rem 25%;
     color: $white;
     font-size: 1.3rem;
+
+    @include desktop{
+      width: 36%;
+    }
   }
 }

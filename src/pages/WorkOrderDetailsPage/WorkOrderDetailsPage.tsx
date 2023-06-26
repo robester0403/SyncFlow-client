@@ -43,7 +43,6 @@ const WorkOrderDetailsPage = () => {
                                       setCheckedMaterials = {setCheckedMaterials}
                                       setOpenModal = {setOpenModal}
                                       employee = {workOrder.employee_name}
-                                      updateState = {fetchWorkOrders}
                                       />)
   }
   

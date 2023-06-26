@@ -1,21 +1,22 @@
 import { useState } from "react"
 import { IssuedMaterial, Material } from "../../model"
-import "./IssuanceTableModal.scss"
+import "./IssuanceTableModal.scss";
 import { issueMaterial } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 interface Props {
     checkedMaterials: Material[];
     setCheckedMaterials: React.Dispatch<React.SetStateAction<Material[]>>;
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     employee: string;
-    updateState : () => Promise<void>
 }
 
 
 
-const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMaterials, setOpenModal, employee,updateState }) => {
+const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMaterials, setOpenModal, employee}) => {
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
     const [employeeIssued, setEmployeeIssued] = useState<string[]>([])
     const [error,setError] = useState<{ [key: number]: boolean}>({})
+    const navigate = useNavigate();
     const onChangeHandler = (id: number, maxQuantity: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         let newValue = Number(event.target.value);
         if (newValue > maxQuantity) {
@@ -48,7 +49,6 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
                 return material;
             }
         });
-        console.log(error)
 
         if (Object.keys(newErrors).length > 0) {
             return;
@@ -69,7 +69,7 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
 
         setCheckedMaterials([]);
         setOpenModal(false);
-        updateState();
+        navigate("/issuanceLog")
     }
 
     const handleEmployeeIssued = (employee: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +86,7 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
 
     return (
         <div className="issuance" >
+            <p className="issuance__cross-icon" onClick={() => setOpenModal(false)}>X</p>
             < section className="issuance-table">
                 <div className="issuance-table__header">
                     <p className="issuance-table__title">MATERIAL NUMBER</p>
