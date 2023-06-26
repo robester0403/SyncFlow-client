@@ -3,6 +3,7 @@ import { Employee, WorkOrder } from "../../model"
 import { getEmployees, initateWorkOrder } from "../../utils/api";
 import Loading from "../Loading/Loading";
 import "./PendingTableOrder.scss"
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   workOrders: WorkOrder[]
@@ -15,6 +16,7 @@ const PendingTableOrder: React.FC<Props> = ({ workOrders }) => {
   const [selectedEmployees, setSelectedEmployees] = useState<{ [key: number]: string }>({});
   const [rowErrors, setRowErrors] = useState<{ [key: number]: boolean }>({});
 
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchEmployees = async () => {
       const response = await getEmployees()
@@ -40,6 +42,7 @@ const PendingTableOrder: React.FC<Props> = ({ workOrders }) => {
     }
     setRowErrors(prev => ({ ...prev, [work_order_id]: false }));
     await initateWorkOrder({ work_order_id: work_order_id, employee_id: Number(employee) })
+    navigate("/")
   }
 
 
