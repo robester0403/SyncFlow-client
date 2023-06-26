@@ -8,6 +8,7 @@ import { WorkOrder } from "../../model";
 
 import "./WorkOrderPage.scss"
 import { getWorkOoder } from "../../utils/api";
+import Loading from "../../components/Loading/Loading";
 
 
 const WorkOrderPage = () => {
@@ -18,12 +19,13 @@ const WorkOrderPage = () => {
     const fetchWorkOrders = async() =>{
       const response = await getWorkOoder()
       setWorkOrders(response);
+      console.log(response)
     }
     fetchWorkOrders()
   },[])
 
   if(!workOrders){
-    return <div>Loading....</div>
+    return <Loading/>
   }
 
 

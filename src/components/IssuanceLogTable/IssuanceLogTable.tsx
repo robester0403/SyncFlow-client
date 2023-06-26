@@ -1,37 +1,25 @@
-import { useEffect, useState } from "react"
-import { getIssuedMaterial } from "../../utils/api"
-import { IssuedMaterial } from "../../model"
-import "./IssuanceLogTable.scss"
-interface IssuedMaterialLog extends IssuedMaterial {
-  issuanceLog_id: number;
-  receive_date: string;
-  issued_date : string;
 
+import { IssuedMaterialLog } from "../../model"
+import Loading from "../Loading/Loading"
+import "./IssuanceLogTable.scss"
+
+interface Props{
+  issuedMaterial : IssuedMaterialLog[]
 }
 
 
-const IssuanceLogTable = () => {
-  const [issuedMaterial, setIssuedMaterial] = useState<IssuedMaterialLog[]>()
-  useEffect(() => {
-    const fetchIssuedMaterials = async () => {
-      try {
-        const response = await getIssuedMaterial()
-        setIssuedMaterial(response.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchIssuedMaterials();
-  }, [])
+const IssuanceLogTable :React.FC<Props> = ({issuedMaterial}) => {
+
 
   if (!issuedMaterial) {
-    return <div>Loading...</div>
+    return <Loading/>
   }
 
   return (
     <>
-      {issuedMaterial.map(({material_number,quantity,size,issued_date}) => {
-        return <div className="issuance-log-row">
+      {issuedMaterial.map(({issuanceLog_id,material_number,quantity,size,issued_date,issued_time,issued_employee
+}) => {
+        return <div className="issuance-log-row" key={issuanceLog_id}>
           <div className="issuance-log-row__column ">
             <div className="material-row__mobile-heading">Material Number</div>
             {material_number}
@@ -45,8 +33,16 @@ const IssuanceLogTable = () => {
             {size}
           </div>
           <div className="issuance-log-row__column ">
+            <div className="material-row__mobile-heading">IssuedTime</div>
+            {issued_time}
+          </div>
+          <div className="issuance-log-row__column ">
             <div className="material-row__mobile-heading">IssuedDate</div>
             {issued_date.substring(0,10)}
+          </div>
+          <div className="issuance-log-row__column ">
+            <div className="material-row__mobile-heading">Employee</div>
+            {issued_employee}
           </div>
         </div>
       })}

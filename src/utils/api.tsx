@@ -1,9 +1,10 @@
 import axios from "axios";
-import { IssuedMaterial, Locations } from "../model";
+import { IssuedMaterial} from "../model";
 
 const materialURL = "http://localhost:8080/materials";
 const workOrderURL = "http://localhost:8080/workorders";
 const locationURL = 'http://localhost:8080/location';
+const employeeURL = 'http://localhost:8080/employee';
 
 // Api request get on Workorders
 export const getWorkOoder = async () => {
@@ -74,5 +75,33 @@ export const getLocations = async() =>{
      }
    catch (error) {
     console.log(error,"Locations")
+  }
+}
+
+export const getPendingWorkOrders = async () => {
+  try {
+    const response = await axios.get(`${workOrderURL}/pending`)
+    return response.data
+  } catch (error) {
+    console.log(error, " pendingWorkorders")
+  }
+}
+
+export const getEmployees =async () => {
+  try {
+    const response = await axios.get(employeeURL)
+    return response.data
+  } catch (error) {
+    console.log(error, "employees")
+  }
+
+}
+
+export const initateWorkOrder = async(data : {work_order_id : number , employee_id : number}) =>{
+  try {
+    axios.post(workOrderURL,data)
+  
+  } catch (error) {
+   console.log(error) 
   }
 }

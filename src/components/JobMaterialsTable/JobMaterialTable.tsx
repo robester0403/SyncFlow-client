@@ -10,13 +10,13 @@ import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import "./JobMaterialTable.scss"
 import IntransitTable from "../IntransitTable/IntransitTable";
 import IntransitHeader from "../IntransitHeader/IntransitHeader";
+import Loading from "../Loading/Loading";
 
 interface Props {
     setCheckedMaterials: React.Dispatch<React.SetStateAction<Material[]>>
-    checkedMaterials: Material[]
 }
 
-const JobMaterialTable: React.FC<Props> = ({ setCheckedMaterials, checkedMaterials }) => {
+const JobMaterialTable: React.FC<Props> = ({ setCheckedMaterials }) => {
     const params = useParams();
     const [recievedJobMaterial, setRecievedJobMaterial] = useState<Material[]>([]);
     const [inTransitMaterial, setIsTransitMaterial] = useState<Material[]>([]);
@@ -40,7 +40,7 @@ const JobMaterialTable: React.FC<Props> = ({ setCheckedMaterials, checkedMateria
     }, [])
 
     if (isLoading) {
-        return <div>Loading....</div>
+        return <Loading/>
     }
 
     const onDragEnd = async (result: DropResult) => {

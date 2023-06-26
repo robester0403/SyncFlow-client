@@ -10,6 +10,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import "./App.scss";
 import LocationPage from "./pages/LocationPage/LocationPage";
 import IssuanceLog from "./pages/IssuanceLog/IssuanceLog";
+import PendingWorkOrderPage from "./pages/PendingWorkOrderPage/PendingWorkOrderPage";
 function App() {
 
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/workOrder/:id" element={<WorkOrderDetailsPage />} />
           <Route path="/locations" element={<LocationPage />} />
           <Route path="/issuanceLog" element={<IssuanceLog />} />
+          <Route path= "/workorders" element={<PendingWorkOrderPage/>}/>
         </Routes>
       </div>
     </BrowserRouter>

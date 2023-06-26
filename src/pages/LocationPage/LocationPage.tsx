@@ -5,6 +5,7 @@ import LocationComponent from "../../components/LocationComponent/LocationCompon
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { Locations, Material } from "../../model";
 import {  updateMaterialLocation } from "../../utils/api";
+import Loading from "../../components/Loading/Loading";
 
 interface LocationContainer {
   location: Locations
@@ -29,7 +30,7 @@ const LocationPage = () => {
       })
   }, [])
   if (!locations) {
-    return <div>Loading...</div>
+    return <Loading/>
   }
 
 

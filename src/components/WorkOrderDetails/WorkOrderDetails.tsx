@@ -1,5 +1,6 @@
 
 import { Material, WorkOrder } from "../../model";
+import Loading from "../Loading/Loading";
 import "./WorkOrderDetails.scss"
 
 
@@ -13,7 +14,7 @@ const WorkOrderDetails: React.FC<Props> = ({ setOpenModal, checkedMaterials ,wor
 
 
   if (!workOrder) {
-    return <div>Loading...</div>
+    return <Loading/>
   }
 
   const showModal = () => {
@@ -38,7 +39,7 @@ const WorkOrderDetails: React.FC<Props> = ({ setOpenModal, checkedMaterials ,wor
               Work Order Number
             </p>
             <p className="order-details__info">
-              {workOrder.workoder_Number}
+              {workOrder.workorder_Number}
             </p>
           </div>
 

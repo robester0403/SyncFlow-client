@@ -5,8 +5,7 @@ import './Header.scss';
 const Header = () => {
   return (
     <header className="header">
-      <img className="header__logo" alt="BrightFlow logo" />
-      <h1 className="header__title">BrightFlow</h1>
+      <h1 className="header__title">SyncFlow</h1>
     </header>
   );
 }

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Material, WorkOrder } from "../../model";
 import { getWorkOrderDetails } from "../../utils/api";
+import Loading from "../../components/Loading/Loading";
 
 const WorkOrderDetailsPage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false)
@@ -20,9 +21,12 @@ const WorkOrderDetailsPage = () => {
       setWorkOrder(response[0])
     }
     fetchWorkOrders()
-  }, [workOrder])
+  }, [])
 
 
+  if(!workOrder){
+    return <Loading/>
+  }
 
   return (
     <section className="work-order__details-page">
@@ -30,14 +34,14 @@ const WorkOrderDetailsPage = () => {
     openModal && (<IssuenceTableModal checkedMaterials={checkedMaterials}
                                       setCheckedMaterials = {setCheckedMaterials}
                                       setOpenModal = {setOpenModal}
+                                      employee = {workOrder.employee_name}
                                       />)
   }
   
       <WorkOrderDetails workOrder = {workOrder}
                         setOpenModal = {setOpenModal}
                         checkedMaterials={checkedMaterials}/>   
-      <JobMaterialTable setCheckedMaterials ={setCheckedMaterials}
-                        checkedMaterials={checkedMaterials}/>
+      <JobMaterialTable setCheckedMaterials ={setCheckedMaterials}/>
     </section>
 
   )

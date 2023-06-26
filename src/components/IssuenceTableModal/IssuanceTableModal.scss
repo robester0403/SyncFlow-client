@@ -65,7 +65,7 @@
         border: none;
         border-bottom: 1px solid $cloud ;
         background-color: transparent;
-        text-align: center;
+        padding-left: 0.25rem;
         font-size: 1rem;
         font-weight: bold;
         color: #333;
@@ -91,9 +91,61 @@
       }
     }
   }
+&__submit-container{
+  display: flex;
+} 
+
+&__employee-title{
+  font-weight: bold;
+}
+
+&__employee-label{
+ display: flex;
+ gap: 1rem;
+ font-weight: 500;
+}
+
+&__employee-checkbox{
+  appearance: none;
+  cursor: pointer;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: .125rem solid $color-secondary;
+  margin-top: .375rem;
+  border-radius: .1875rem;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  
+
+  &:checked {
+      background-color: $color-secondary;
+  }
+
+  &:focus {
+      outline: none;
+      box-shadow: 0 0 .1875rem #888;
+  }
+
+}
+
+  &__employee-name{
+   background-color: $white;
+   display:flex;
+   gap: 2rem;
+   flex: none;
+   font-size: 1.2rem;
+   padding: 1rem;
+   border-radius: .5rem
+  }
+
+
+
 
   &__button {
     @include button;
-    margin: 2rem 1rem 2rem 60%;;
+    flex: none;
+    margin:1rem 1rem 0rem 25%;
+    color: $white;
+    font-size: 1.3rem;
   }
 }

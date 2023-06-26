@@ -1,15 +1,19 @@
-import { useState } from "react"
+import {  useState } from "react"
 import { IssuedMaterial, Material } from "../../model"
 import "./IssuanceTableModal.scss"
 import { issueMaterial } from "../../utils/api";
 interface Props {
     checkedMaterials: Material[];
     setCheckedMaterials: React.Dispatch<React.SetStateAction<Material[]>>;
-    setOpenModal : React.Dispatch<React.SetStateAction<boolean>>;
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    employee: string
 }
 
-const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMaterials ,setOpenModal}) => {
+
+
+const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMaterials, setOpenModal, employee }) => {
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+    const [employeeIssued, setEmployeeIssued] = useState<string[]>([])
     const onChangeHandler = (id: number, maxQuantity: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         let newValue = Number(event.target.value);
         if (newValue > maxQuantity) {
@@ -21,10 +25,12 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
         }));
     };
 
+
+
     const onClickHandler = () => {
         let updatedMaterial: Material[] = [...checkedMaterials];
         let hasEmptyFields = false;
-
+        console.log(employeeIssued)
         updatedMaterial = updatedMaterial.map(material => {
             if (quantities[material.material_id] !== undefined) {
                 return {
@@ -42,21 +48,34 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
         }
 
         updatedMaterial.forEach(eachMaterial => {
+            const issued_employee = employeeIssued.join(','); 
             const issuedMaterial: IssuedMaterial = {
                 material_number: eachMaterial.material_number,
                 quantity: eachMaterial.quantity,
                 size: eachMaterial.size,
-                receive_date: eachMaterial.receive_date,
+                issued_employee: issued_employee,
                 work_order_id: eachMaterial.work_order_id
             }
-
-            issueMaterial(eachMaterial.material_id, issuedMaterial);
+                issueMaterial(eachMaterial.material_id, issuedMaterial);
+           
         });
-        
-        
+      
+
         setCheckedMaterials([]);
         setOpenModal(false)
     }
+
+    const handleEmployeeIssued = (employee: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        const isChecked = event.target.checked;
+        setEmployeeIssued(prev => {
+            if (isChecked) {
+                return [...prev, employee];
+            } else {
+                return prev.filter(emp => emp !== employee);
+            }
+        });
+    }
+
 
     return (
         <div className="issuance" >
@@ -98,7 +117,21 @@ const IssuenceTableModal: React.FC<Props> = ({ checkedMaterials, setCheckedMater
                             </div>
                         })
                     }
+                    <div className="issuance-table__submit-container">
+                    <div className="issuance-table__employee-name">
+                        <h3 className="issuance-table__employee-title">Issued To : </h3>
+                        {employee.split(',').map((employee) => (
+                            <label className="issuance-table__employee-label"  
+                                  key={employee}>
+                                {employee}
+                                <input type="checkbox" 
+                                       className="issuance-table__employee-checkbox"   
+                                       onChange={handleEmployeeIssued(employee)} />
+                            </label>
+                        ))}
+                    </div>
                     <button className="issuance-table__button" onClick={() => onClickHandler()} > Issue Material</button>
+                    </div>
                 </div>
             </section>
         </div>
