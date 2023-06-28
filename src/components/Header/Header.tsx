@@ -14,7 +14,7 @@ const Header = () => {
   const navigate = useNavigate()
   const [dropDown, setDropDown] = useState<boolean>(false);
   const menus = [
-    { name: "dashboard", link: "/", icon: MdOutlineDashboard },
+    { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
     { name: "Manage Yard", link: "/locations", icon: FaMapMarkerAlt },
     { name: "Issuance Log", link: "/issuanceLog", icon: TbReportAnalytics },
     { name: "Employees", link: "/EmployeeData", icon: AiOutlineUser },
@@ -33,6 +33,7 @@ const Header = () => {
             to={menu?.link}
             key={i}
             className={`header__link ${menu && "header__link--with-margin"}`}
+            onClick={() => setDropDown(!dropDown)}
           >
             <div className="icons">{React.createElement(menu?.icon, { size: "20" })}</div>
          
