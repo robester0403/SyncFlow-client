@@ -1,19 +1,65 @@
+@use "../../styles//partials/mixins" as *;
+
 .header {
     display: flex;
     align-items: center;
-    background-color: #ffffff;
+    background-color:white;
     padding: 20px;
     color: #333;
   
-    &__logo {
-      height: 50px;
-      margin-right: 20px;
-    }
+   &__content{
+
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+ 
+   }
   
     &__title {
       font-size: 24px;
       font-weight: 600;
       color: #333;
     }
+
+    &__link{
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    &__icon{
+      margin-top: .625rem;
+      @include tablet{
+        display: none;
+      }
+    }
   }
+
+  .header__menu {
+    
+    @include tablet{
+
+      display: none;
+    }
+  }
+  
+  .header__menu--visible {
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    background-color: #0D47A1;
+    font-size: 1.1rem;
+    z-index: 1;
+    left: 0;
+    top: 5rem;
+    padding: 1rem 0;
+    color: white;
+  }
+  
+ 
+  
   
