@@ -8,6 +8,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: auto;
   position: fixed;
   background-color: rgba(49, 49, 49, 0.8);
   &__cross-icon{
