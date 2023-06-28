@@ -1,10 +1,14 @@
 import axios from "axios";
 import { IssuedMaterial} from "../model";
 
-const materialURL = "http://localhost:8080/materials";
-const workOrderURL = "http://localhost:8080/workorders";
-const locationURL = 'http://localhost:8080/location';
-const employeeURL = 'http://localhost:8080/employee';
+
+
+
+const URL  = import.meta.env.VITE_BASE_URL as string
+const materialURL =  `${URL}/materials`;
+const workOrderURL = `${URL}/workorders`;
+export const locationURL =  `${URL}/location`;
+const employeeURL =  `${URL}/employee`;
 
 // Api request get on Workorders
 export const getWorkOoder = async () => {
