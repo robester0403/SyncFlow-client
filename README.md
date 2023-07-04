@@ -85,7 +85,7 @@ npm run dev
 ```
 <h2>Screenshots</h2>
 <h3>DASHBOARD</h3>
-<img width="480" alt="Screenshot 2023-06-26 at 9 10 58 AM" src="https://github.com/mandeepharsh/SyncFlow-client/assets/100046979/2f8b6166-9ef1-4ec2-b844-e0ff72b90217">
+<img width="480" alt="Screenshot 2023-06-26 at 9 10 58 AM" src="public/Screenshot 2023-07-04 at 12.59.36 PM.png">
 <h3>Geographical Mapping area</h3>
 <img width="480" alt="Screenshot 2023-06-26 at 9 11 27 AM" src="https://github.com/mandeepharsh/SyncFlow-client/assets/100046979/6aa9c8a3-5586-496b-a73f-d2368a1f39b0">
 
