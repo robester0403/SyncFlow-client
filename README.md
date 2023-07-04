@@ -87,7 +87,7 @@ npm run dev
 <h3>DASHBOARD</h3>
 <img width="480" alt="Screenshot 2023-06-26 at 9 10 58 AM" src="public/Screenshot 2023-07-04 at 12.59.36 PM.png">
 <h3>Geographical Mapping area</h3>
-<img width="480" alt="Screenshot 2023-06-26 at 9 11 27 AM" src="https://github.com/mandeepharsh/SyncFlow-client/assets/100046979/6aa9c8a3-5586-496b-a73f-d2368a1f39b0">
+<img width="480" alt="Screenshot 2023-06-26 at 9 11 27 AM" src="public/Screenshot 2023-07-04 at 12.59.49 PM.png">
 
 
 </ul><h2>Features that can be added</h2>
