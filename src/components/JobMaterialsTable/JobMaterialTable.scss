@@ -1,25 +1,37 @@
 @use "../../styles/partials/variables" as *;
-
+@use "../../styles/partials/mixins" as *;
 .material-tables {
     display: flex;
-
     gap: 2rem;
     border-radius: .5rem;
     width: 100%;
     justify-content: center;
+    flex-direction: column;
+    @include tablet{
+        flex-direction: row;
+    }
+    
 
     &__recieved {
         background-color: white;
-        width: 50%;
+        
         box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
         border-radius: .8rem;
+
+        @include tablet{
+            width: 50%;
+        }
     }
 
     &__inTransit {
         background-color: white;
-        width: 50%;
+     
         box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
         border-radius: 0.8rem;
+
+        @include tablet{
+            width: 50%;
+        }
     }
 }
 

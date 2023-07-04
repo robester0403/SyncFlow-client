@@ -8,6 +8,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: auto;
   position: fixed;
   background-color: rgba(49, 49, 49, 0.8);
   &__cross-icon{
@@ -41,7 +42,7 @@
       background-color: #f7fafc;
       text-transform: uppercase;
       border-radius: 0.5rem;
-      // border-bottom: 1px solid #4a5568;
+     
     }
   }
 
@@ -105,9 +106,9 @@
   }
 &__submit-container{
   display: flex;
-  @include tablet{
+
     flex-direction: column;
-  }
+
   @include desktop{
     flex-direction: row;
   
@@ -150,11 +151,19 @@
   &__employee-name{
    background-color: $white;
    display:flex;
-   gap: 2rem;
+   gap: 1rem;
    flex: none;
    font-size: 1.2rem;
    padding: 1rem;
-   border-radius: .5rem
+   border-radius: .5rem;
+   justify-content: center;
+
+
+
+   @include tablet{
+    gap: 2rem;
+   
+   }
   }
 
 
@@ -163,12 +172,14 @@
   &__button {
     @include button;
     flex: none;
-    margin:1rem 1rem 0rem 25%;
+    margin:1rem auto ;
     color: $white;
     font-size: 1.3rem;
+    width: 70%;
 
     @include desktop{
       width: 36%;
+      margin:1rem 1rem 0 25% ;
     }
   }
 }

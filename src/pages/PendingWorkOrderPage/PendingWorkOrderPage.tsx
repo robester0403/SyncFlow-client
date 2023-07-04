@@ -5,7 +5,8 @@ import PendingTableOrder from "../../components/PendingOrderTable/PendingTableOr
 import Loading from "../../components/Loading/Loading";
 import "./PendingWorkOrderPage.scss"
 import TablesHeader from "../../components/TablesHeader/TablesHeader";
-
+import Lottie from "lottie-react";
+import outOfOreder  from "../../assets/animations/Out of Stock .json"
 const PendingWorkOrderPage = () => {
 const [workOrders,setWorkOrders] = useState<WorkOrder[]>();
 const [searchField , setSearchField] = useState<string>("")
@@ -41,7 +42,13 @@ const filteredArray  = workOrders.filter((order) => {
   return (
     <section className="start-workorder-table">
       <TablesHeader title="New Workorders" searchField={searchField}  onChangeHandler={onChangeHandler}/>
-      <PendingTableOrder workOrders = {filteredArray}/> 
+       {workOrders ? <div className="start-workorder-table__out-of-workorders">
+       <span className="start-workorder-table__message">No more new work orders available</span>
+       <Lottie animationData={outOfOreder}
+               loop={false} 
+               autoplay={true} /></div>
+            : <PendingTableOrder workOrders = {filteredArray}/> }
+      
     </section>
   )
 }

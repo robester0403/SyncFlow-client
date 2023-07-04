@@ -13,7 +13,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
   const menus = [
-    { name: "dashboard", link: "/", icon: MdOutlineDashboard },
+    { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
     { name: "Manage Yard", link: "/locations", icon: FaMapMarkerAlt },
     { name: "Issuance Log", link: "/issuanceLog", icon: TbReportAnalytics, margin: true },
     { name: "Employees", link: "/EmployeeData", icon: AiOutlineUser },

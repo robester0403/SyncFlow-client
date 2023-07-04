@@ -1,9 +1,15 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .sidebar {
-  display: flex;
-  gap: 6rem;
-  
+  display: none;
+
+  @include tablet{
+
+    display: flex;
+    gap: 6rem;
+    
+  }
   &__main {
     background: $color-primary;;
     min-height: 100vh;

@@ -6,7 +6,7 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { Locations, Material } from "../../model";
 import {  updateMaterialLocation } from "../../utils/api";
 import Loading from "../../components/Loading/Loading";
-
+import { locationURL } from "../../utils/api";
 interface LocationContainer {
   location: Locations
   materials: Material[]
@@ -20,10 +20,10 @@ const LocationPage = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:8080/location')
+    axios.get(locationURL)
       .then((res) => {
         const locationsWithMaterial = res.data.map(async (location: Locations) => {
-          const materialsRes = await axios.get(`http://localhost:8080/location/materials/${location.location}`);
+          const materialsRes = await axios.get(`${locationURL}/materials/${location.location}`);
           return { location: location, materials: materialsRes.data.filter((material: Material) => material.status === "received") };
         });
         Promise.all(locationsWithMaterial).then((completed) => setLocations(completed))
