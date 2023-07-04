@@ -31,7 +31,7 @@ const onChangeHandler = (e : React.ChangeEvent<HTMLInputElement>) =>{
  setSearchField(value);
 }
 
-
+console.log(workOrders)
 if(!workOrders){
   return <Loading/>
 }
@@ -42,7 +42,7 @@ const filteredArray  = workOrders.filter((order) => {
   return (
     <section className="start-workorder-table">
       <TablesHeader title="New Workorders" searchField={searchField}  onChangeHandler={onChangeHandler}/>
-       {workOrders ? <div className="start-workorder-table__out-of-workorders">
+       {workOrders.length === 0 ? <div className="start-workorder-table__out-of-workorders">
        <span className="start-workorder-table__message">No more new work orders available</span>
        <Lottie animationData={outOfOreder}
                loop={false} 
