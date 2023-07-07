@@ -1,14 +1,14 @@
 import axios from "axios";
-import { IssuedMaterial} from "../model";
+import { IssuedMaterial } from "../model";
 
 
 
 
-const URL  = import.meta.env.VITE_BASE_URL as string
-const materialURL =  `${URL}/materials`;
+const URL = import.meta.env.VITE_BASE_URL as string
+const materialURL = `${URL}/materials`;
 const workOrderURL = `${URL}/workorders`;
-export const locationURL =  `${URL}/location`;
-const employeeURL =  `${URL}/employee`;
+export const locationURL = `${URL}/location`;
+const employeeURL = `${URL}/employee`;
 
 // Api request get on Workorders
 export const getWorkOoder = async () => {
@@ -62,23 +62,23 @@ export const getIssuedMaterial = async () => {
   return response;
 }
 
-export const updateMaterialLocation = async(id:string,updatedLocation :{location : number} ) =>{
+export const updateMaterialLocation = async (id: string, updatedLocation: { location: number }) => {
   try {
-    await axios.patch(`${materialURL}/${id}`,updatedLocation)
-    
+    await axios.patch(`${materialURL}/${id}`, updatedLocation)
+
   } catch (error) {
-     console.log(error, "update material location")
+    console.log(error, "update material location")
   }
 }
 
 
-export const getLocations = async() =>{
+export const getLocations = async () => {
   try {
     const response = await axios.get(locationURL)
-       return response.data
-     }
-   catch (error) {
-    console.log(error,"Locations")
+    return response.data
+  }
+  catch (error) {
+    console.log(error, "Locations")
   }
 }
 
@@ -91,7 +91,7 @@ export const getPendingWorkOrders = async () => {
   }
 }
 
-export const getEmployees =async () => {
+export const getEmployees = async () => {
   try {
     const response = await axios.get(employeeURL)
     return response.data
@@ -101,11 +101,39 @@ export const getEmployees =async () => {
 
 }
 
-export const initateWorkOrder = async(data : {work_order_id : number , employee_id : number}) =>{
+export const initateWorkOrder = async (data: { work_order_id: number, employee_id: number }) => {
   try {
-    axios.post(workOrderURL,data)
-  
+    axios.post(workOrderURL, data)
+
   } catch (error) {
-   console.log(error) 
+    console.log(error)
+  }
+}
+
+export const authentication = async (username: string, password: string) => {
+  try {
+    const response = await axios.post(`${employeeURL}/login`, { username: username, password: password })
+    console.log(response)
+     return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data.msg;
+      console.log(message)
+      return message
+    }
+  }
+}
+
+export const getUserDetails =async (authToken:string) => {
+  try {
+    const getData = await axios.get(`${employeeURL}/login`,{
+      headers:{
+        Authorization:`Bearer${authToken}`
+      }   
+    })
+    console.log(getData)
+    return getData;
+  } catch (error) {
+    console.log(error)
   }
 }
