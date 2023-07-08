@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { authentication, getUserDetails } from "../../utils/api"
 interface Inputs {
   username: string,
@@ -6,6 +7,8 @@ interface Inputs {
 }
 
 const LoginPage = () => {
+ 
+  const navigate = useNavigate()
 
   const defaultValues = {
     username: "",
@@ -30,18 +33,22 @@ const LoginPage = () => {
     const loginRequest = async() =>{
         try {
           const response = await authentication(username, password)
-          if(response === "Invavlid credentials"){
+          if(response === "invalid credentials"){
             console.log("Invalid username and password")
           }else{
             sessionStorage.setItem("authToken", response.data.token);
-             getUserDetails(response.data.token);
-            
+            navigate("/dashboard")
           }
+          
+        
+      
         } catch (error) {
           console.log(error)
         }
     }
-    loginRequest()
+     loginRequest()
+
+    
   }
 
   return (

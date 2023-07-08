@@ -6,7 +6,7 @@ import WorkOrderTableRow from "../../components/WorkOrderTableRow/WorkOrderTable
 import { WorkOrder } from "../../model";
 
 import "./WorkOrderPage.scss"
-import { getWorkOoder } from "../../utils/api";
+import { getAllWorkOrders } from "../../utils/api";
 import Loading from "../../components/Loading/Loading";
 import TablesHeader from "../../components/TablesHeader/TablesHeader";
 
@@ -17,9 +17,11 @@ const WorkOrderPage = () => {
  const[searchField, setSearchField] = useState<string>("")
   useEffect(() =>{
     const fetchWorkOrders = async() =>{
-      const response = await getWorkOoder()
-      setWorkOrders(response);
-      console.log(response)
+      const authToken = sessionStorage.getItem('authToken')
+      if(authToken){
+        const response = await getAllWorkOrders(authToken)
+        setWorkOrders(response);
+      }
     }
     fetchWorkOrders()
   },[])

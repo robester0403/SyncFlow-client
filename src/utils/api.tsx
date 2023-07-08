@@ -10,10 +10,14 @@ const workOrderURL = `${URL}/workorders`;
 export const locationURL = `${URL}/location`;
 const employeeURL = `${URL}/employee`;
 
-// Api request get on Workorders
-export const getWorkOoder = async () => {
+
+export const getAllWorkOrders = async (authToken:string) => {
   try {
-    const response = await axios.get(workOrderURL)
+    const response = await axios.get(workOrderURL,{
+      headers:{
+        Authorization:`Bearer ${authToken}`
+      }   
+    })
     return response.data
   } catch (error) {
     console.log(error, "workOrders")
@@ -30,7 +34,6 @@ export const getWorkOrderDetails = async (id: string | undefined) => {
   }
 }
 
-// Api request for materials
 export const getMaterials = async (id: string | undefined) => {
   try {
     const response = await axios.get(`${materialURL}/${id}`)
@@ -113,7 +116,6 @@ export const initateWorkOrder = async (data: { work_order_id: number, employee_i
 export const authentication = async (username: string, password: string) => {
   try {
     const response = await axios.post(`${employeeURL}/login`, { username: username, password: password })
-    console.log(response)
      return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -126,12 +128,11 @@ export const authentication = async (username: string, password: string) => {
 
 export const getUserDetails =async (authToken:string) => {
   try {
-    const getData = await axios.get(`${employeeURL}/login`,{
+    const getData = await axios.get(`${employeeURL}/userInfo`,{
       headers:{
-        Authorization:`Bearer${authToken}`
+        Authorization:`Bearer ${authToken}`
       }   
     })
-    console.log(getData)
     return getData;
   } catch (error) {
     console.log(error)
