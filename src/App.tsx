@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useContext } from "react";
 
 // Pages
 import WorkOrderPage from "./pages/WorkOrderPage/WorkOrderPage"
@@ -14,12 +15,15 @@ import PendingWorkOrderPage from "./pages/PendingWorkOrderPage/PendingWorkOrderP
 import EmployeeData from "./pages/EmployeeData/EmployeeData";
 import NotFound from "./components/NotFound/NotFound";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import { AuthorizationContext } from "./context/AuthContext";
+
 function App() {
+  const [authorized] = useContext(AuthorizationContext)
   return (
     <BrowserRouter>
       <Header />
       <div className="sideBar">
-        <Sidebar />
+        {authorized && <Sidebar />}   
         <Routes>
           <Route path="/" element={<LoginPage/>} />
           <Route path="/dashboard" element={<WorkOrderPage />}/>

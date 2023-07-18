@@ -62,4 +62,27 @@
   
  
   
+  .header__user-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* Add other styles as needed */
+  }
+  
+  .header__user-image {
+    cursor: pointer;
+    background-color: rgb(206, 205, 205);
+    border-radius: 50%;
+    height: 50px; /* Replace 50px with your desired height */
+    width: 50px; /* Replace 50px with your desired width */
+    /* Add other styles as needed */
+  }
+  
+  .header__user-container > div {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    /* Add other styles as needed */
+  }
   
