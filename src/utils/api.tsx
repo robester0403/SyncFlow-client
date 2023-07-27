@@ -120,7 +120,6 @@ export const authentication = async (username: string, password: string) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const message = error.response?.data.msg;
-      console.log(message)
       return message
     }
   }
