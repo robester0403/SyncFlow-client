@@ -15,6 +15,8 @@ import PendingWorkOrderPage from "./pages/PendingWorkOrderPage/PendingWorkOrderP
 import EmployeeData from "./pages/EmployeeData/EmployeeData";
 import NotFound from "./components/NotFound/NotFound";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
+
 import { AuthorizationContext } from "./context/AuthContext";
 
 function App() {
@@ -26,12 +28,14 @@ function App() {
         {authorized && <Sidebar />}   
         <Routes>
           <Route path="/" element={<LoginPage/>} />
+          <Route element={<PrivateRoutes/>}>
           <Route path="/dashboard" element={<WorkOrderPage />}/>
           <Route path="/workOrder/:id" element={<WorkOrderDetailsPage />} />
           <Route path="/locations" element={<LocationPage />} />
           <Route path="/issuanceLog" element={<IssuanceLog />} />
           <Route path="/workorders" element={<PendingWorkOrderPage />} />
           <Route path="/employeeData" element={<EmployeeData />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
