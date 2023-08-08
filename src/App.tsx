@@ -15,7 +15,7 @@ import PendingWorkOrderPage from "./pages/PendingWorkOrderPage/PendingWorkOrderP
 import EmployeeData from "./pages/EmployeeData/EmployeeData";
 import NotFound from "./components/NotFound/NotFound";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
+import PrivateRoutes from "./utils/PrivateRoutes/PrivateRoutes";
 
 import { AuthorizationContext } from "./context/AuthContext";
 

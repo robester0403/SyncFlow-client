@@ -64,6 +64,7 @@ const LoginPage = () => {
 
         } else {
           sessionStorage.setItem("authToken", response.data.token);
+          console.log(response.data)
           setAuthorized(true);
           navigate("/dashboard")
         }
