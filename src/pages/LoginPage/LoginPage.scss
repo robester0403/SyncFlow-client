@@ -50,6 +50,10 @@
             font-weight: 400;
             line-height: normal;
         }
+
+        &--invalid{
+            border-color: red;
+        }
     }
 
     &-image {
