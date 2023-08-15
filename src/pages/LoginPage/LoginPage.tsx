@@ -1,4 +1,4 @@
-import { useState, useContext , useEffect} from "react"
+import { useState, useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { authentication } from "../../utils/api"
 import { AuthorizationContext } from "../../context/AuthContext";
@@ -11,9 +11,9 @@ interface Inputs {
   password: string
 }
 
-interface Error{
-  username : boolean,
-  password : boolean
+interface Error {
+  username: boolean,
+  password: boolean
 }
 const LoginPage = () => {
 
@@ -28,7 +28,7 @@ const LoginPage = () => {
 
   const errorState = {
     username: false,
-    password : false
+    password: false
   }
 
   const [values, setValues] = useState<Inputs>(defaultValues)
@@ -36,9 +36,9 @@ const LoginPage = () => {
   const { username, password } = values
   const [, setAuthorized] = useContext(AuthorizationContext)
 
-  useEffect(()=>{
-   setAuthorized(false)
-  },[])
+  useEffect(() => {
+    setAuthorized(false)
+  }, [])
 
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,17 +51,17 @@ const LoginPage = () => {
     )
 
     setError(
-     {
+      {
         ...error,
-        [name] : false
+        [name]: false
       }
     )
   }
 
   const onSumbitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(username === ""){
-      setError({...error, username : true})
+    if (username === "") {
+      setError({ ...error, username: true })
       console.log(error)
       toast.warn('Username and password required', {
         position: "top-center",
@@ -73,27 +73,27 @@ const LoginPage = () => {
         progress: undefined,
         theme: "light",
       });
-    
+
     }
-     if( password === ""){
-      setError({...error, password : true})
-    toast.warn('Username and password required', {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    return;
-   }
-  
+    if (password === "") {
+      setError({ ...error, password: true })
+      toast.warn('Username and password required', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
     const loginRequest = async () => {
       try {
         const response = await authentication(username, password)
-     if (response === "Invavlid credentials") {
+        if (response === "Invavlid credentials") {
           toast.error('Invalid username or password', {
             position: "top-center",
             autoClose: 3000,
@@ -133,11 +133,11 @@ const LoginPage = () => {
               value={username}
               onChange={onChangeHandler}
             />
-            {error.username ? <div>this field is required</div> : "" }
+            {error.username ? <div>this field is required</div> : ""}
           </label>
           <label className="login__form-label" >
             Passwords
-            <input className= {`login__form-input  ${error.password ? "login__form-input--invalid" : ""}`}
+            <input className={`login__form-input  ${error.password ? "login__form-input--invalid" : ""}`}
               name="password"
               type="password"
               placeholder="Password"
