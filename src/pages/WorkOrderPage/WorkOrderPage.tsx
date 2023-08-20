@@ -1,5 +1,5 @@
 // TOOLS
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 // Components
 import WorkOrderPageHeader from "../../components/WorkOrderPageHeader/WorkOrderPageHeader";
 import WorkOrderTableRow from "../../components/WorkOrderTableRow/WorkOrderTableRow";
@@ -9,9 +9,12 @@ import "./WorkOrderPage.scss"
 import { getAllWorkOrders } from "../../utils/api";
 import Loading from "../../components/Loading/Loading";
 import TablesHeader from "../../components/TablesHeader/TablesHeader";
+import AuthContext from "../../context/AuthContext";
+
 
 
 const WorkOrderPage = () => {
+  const{auth} = useContext(AuthContext)
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>()
   const [searchField, setSearchField] = useState<string>("")
   useEffect(() => {
@@ -22,6 +25,7 @@ const WorkOrderPage = () => {
         setWorkOrders(response);
       }
     }
+    console.log(auth)
     fetchWorkOrders()
   }, [])
 

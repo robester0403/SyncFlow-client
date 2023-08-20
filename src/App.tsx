@@ -17,15 +17,15 @@ import NotFound from "./components/NotFound/NotFound";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import PrivateRoutes from "./utils/PrivateRoutes/PrivateRoutes";
 
-import { AuthorizationContext } from "./context/AuthContext";
+import AuthContext from "./context/AuthContext";
 
 function App() {
-  const [authorized] = useContext(AuthorizationContext)
+  const {auth}= useContext(AuthContext)
   return (
     <BrowserRouter>
       <Header />
       <div className="sideBar">
-        {authorized && <Sidebar />}   
+        {auth.authorized && <Sidebar />}   
         <Routes>
           <Route path="/" element={<LoginPage/>} />
           <Route element={<PrivateRoutes/>}>

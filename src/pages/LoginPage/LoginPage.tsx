@@ -1,11 +1,11 @@
 import { useState, useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { authentication } from "../../utils/api"
-import { AuthorizationContext } from "../../context/AuthContext";
+import { authentication, getUserDetails } from "../../utils/api"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import loginImage from "../../assets/images/login-imag.png"
 import "./LoginPage.scss"
+import AuthContext from "../../context/AuthContext";
 interface Inputs {
   username: string,
   password: string
@@ -18,7 +18,6 @@ interface Error {
 const LoginPage = () => {
 
   const navigate = useNavigate()
-
 
 
   const defaultValues = {
@@ -34,10 +33,13 @@ const LoginPage = () => {
   const [values, setValues] = useState<Inputs>(defaultValues)
   const [error, setError] = useState<Error>(errorState)
   const { username, password } = values
-  const [, setAuthorized] = useContext(AuthorizationContext)
+  const { auth, setAuth } = useContext(AuthContext)
 
   useEffect(() => {
-    setAuthorized(false)
+    setAuth(prevAuth =>({
+      ...prevAuth,
+      authorized : false
+    }))
   }, [])
 
 
@@ -73,7 +75,7 @@ const LoginPage = () => {
         progress: undefined,
         theme: "light",
       });
-
+      return
     }
     if (password === "") {
       setError({ ...error, password: true })
@@ -107,8 +109,15 @@ const LoginPage = () => {
 
         } else {
           sessionStorage.setItem("authToken", response.data.token);
-          console.log(response.data)
-          setAuthorized(true);
+          const authenticate = await authentication(username, password)
+          const getUserInfo = await getUserDetails(authenticate.data.token)
+          setAuth({
+            role : getUserInfo?.data.employee__role            ,
+            authorized : true,
+            employeeName : getUserInfo?.data.employee_name            ,
+            accessToken : authenticate.data.token
+          })
+          console.log(auth)
           navigate("/dashboard")
         }
       } catch (error) {

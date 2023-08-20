@@ -8,11 +8,11 @@ import { FiFolder } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi'
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthorizationContext } from '../../context/AuthContext';
+import  AuthContext  from '../../context/AuthContext';
 
 const Header = () => {
   const navigate = useNavigate();
-  const [authorized, setAuthorized] = useContext(AuthorizationContext)
+  const {auth, setAuth} = useContext(AuthContext)
   const [dropDown, setDropDown] = useState<boolean>(false);
   const [userProfile, setUserProfile] = useState<boolean>(false)
   const menus = [
@@ -24,7 +24,10 @@ const Header = () => {
   ];
 
   const handleUserLogout = () => {
-    setAuthorized(false);
+    setAuth(prevAuth =>({
+      ...prevAuth, 
+      authorized : false
+    }));
     setUserProfile(false)
     navigate("/")
   }
@@ -51,7 +54,7 @@ const Header = () => {
           </Link>
         ))}
       </div>
-      {authorized && <div className="header__user-container">
+      {auth.authorized && <div className="header__user-container">
         <img className='header__user-image'
           onClick={() => setUserProfile(!userProfile)} />
         {userProfile && <div onClick={handleUserLogout} >Logout</div>}

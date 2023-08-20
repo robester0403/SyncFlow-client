@@ -2,25 +2,39 @@
 
 import { createContext, useState } from "react";
 
-type AuthorizationContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-
-export const AuthorizationContext = createContext<AuthorizationContextType>([
-  false,
-  () => {}
-]);
-
-interface AuthorizationProviderProps {
-  children: React.ReactNode;
+type AuthContextType = {
+ auth : {
+  role : string,
+  authorized : boolean,
+  employeeName : string,
+  accessToken : string
+} ,
+setAuth :  React.Dispatch<React.SetStateAction<{
+  role: string;
+  authorized: boolean;
+  employeeName: string;
+  accessToken: string;
+}>>
 }
 
-export const AuthorizationProvider = ({
-  children
-}: AuthorizationProviderProps) => {
-  const [authorized, setAuthorized] = useState<boolean>(false);
+const defaultAuth ={
+  role : "",
+  authorized : false,
+  employeeName : "",
+  accessToken : ""
+}
+ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+
+
+export const AuthProvider = ({children} : {children: React.ReactNode}) => {
+  const [auth, setAuth] = useState(defaultAuth);
 
   return (
-    <AuthorizationContext.Provider value={[authorized, setAuthorized]}>
+    <AuthContext.Provider value={{auth, setAuth}}>
       {children}
-    </AuthorizationContext.Provider>
+    </AuthContext.Provider>
   );
 };
+
+
+export default AuthContext;
