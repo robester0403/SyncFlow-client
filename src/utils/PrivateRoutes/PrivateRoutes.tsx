@@ -1,9 +1,8 @@
-import { Outlet, Navigate } from "react-router-dom"
-import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
+import { Outlet, Navigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const PrivateRoutes = () => {
-  const {auth}= useContext(AuthContext)
+  const {auth}= useAuth();
   return (
     auth ? <Outlet /> : <Navigate to="/" />
   )

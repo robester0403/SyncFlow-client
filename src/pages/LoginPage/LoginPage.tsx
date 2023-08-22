@@ -1,11 +1,11 @@
-import { useState, useContext, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { authentication, getUserDetails } from "../../utils/api"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import loginImage from "../../assets/images/login-imag.png"
 import "./LoginPage.scss"
-import AuthContext from "../../context/AuthContext";
+import useAuth from "../../hooks/useAuth";
 interface Inputs {
   username: string,
   password: string
@@ -33,7 +33,7 @@ const LoginPage = () => {
   const [values, setValues] = useState<Inputs>(defaultValues)
   const [error, setError] = useState<Error>(errorState)
   const { username, password } = values
-  const { auth, setAuth } = useContext(AuthContext)
+  const { auth, setAuth } = useAuth();
 
   useEffect(() => {
     setAuth(prevAuth =>({

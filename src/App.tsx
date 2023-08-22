@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useContext } from "react";
-
-// Pages
-import WorkOrderPage from "./pages/WorkOrderPage/WorkOrderPage"
-import WorkOrderDetailsPage from "./pages/WorkOrderDetailsPage/WorkOrderDetailsPage";
 
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 
+// Styling
 import "./App.scss";
+
+// Pages
+import WorkOrderPage from "./pages/WorkOrderPage/WorkOrderPage"
+import WorkOrderDetailsPage from "./pages/WorkOrderDetailsPage/WorkOrderDetailsPage";
 import LocationPage from "./pages/LocationPage/LocationPage";
 import IssuanceLog from "./pages/IssuanceLog/IssuanceLog";
 import PendingWorkOrderPage from "./pages/PendingWorkOrderPage/PendingWorkOrderPage";
@@ -16,11 +16,12 @@ import EmployeeData from "./pages/EmployeeData/EmployeeData";
 import NotFound from "./components/NotFound/NotFound";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import PrivateRoutes from "./utils/PrivateRoutes/PrivateRoutes";
+import RequiredAuth from "./utils/PrivateRoutes/RequiredAuth";
 
-import AuthContext from "./context/AuthContext";
+import useAuth from "./hooks/useAuth";
 
 function App() {
-  const {auth}= useContext(AuthContext)
+  const {auth}= useAuth();
   return (
     <BrowserRouter>
       <Header />
@@ -28,7 +29,7 @@ function App() {
         {auth.authorized && <Sidebar />}   
         <Routes>
           <Route path="/" element={<LoginPage/>} />
-          <Route element={<PrivateRoutes/>}>
+          <Route element={<RequiredAuth/>}>
           <Route path="/dashboard" element={<WorkOrderPage />}/>
           <Route path="/workOrder/:id" element={<WorkOrderDetailsPage />} />
           <Route path="/locations" element={<LocationPage />} />

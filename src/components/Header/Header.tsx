@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState} from 'react';
 import './Header.scss';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { FaMapMarkerAlt } from 'react-icons/fa';
@@ -8,11 +8,12 @@ import { FiFolder } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi'
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import  AuthContext  from '../../context/AuthContext';
+import useAuth from '../../hooks/useAuth';
+
 
 const Header = () => {
   const navigate = useNavigate();
-  const {auth, setAuth} = useContext(AuthContext)
+  const {auth, setAuth} = useAuth();
   const [dropDown, setDropDown] = useState<boolean>(false);
   const [userProfile, setUserProfile] = useState<boolean>(false)
   const menus = [
