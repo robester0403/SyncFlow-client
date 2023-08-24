@@ -33,7 +33,7 @@ const LoginPage = () => {
   const [values, setValues] = useState<Inputs>(defaultValues)
   const [error, setError] = useState<Error>(errorState)
   const { username, password } = values
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   useEffect(() => {
     setAuth(prevAuth =>({
@@ -95,7 +95,7 @@ const LoginPage = () => {
     const loginRequest = async () => {
       try {
         const response = await authentication(username, password)
-        if (response === "Invavlid credentials") {
+        if (response === "Invalid credentials") {
           toast.error('Invalid username or password', {
             position: "top-center",
             autoClose: 3000,
@@ -117,7 +117,6 @@ const LoginPage = () => {
             employeeName : getUserInfo?.data.employee_name            ,
             accessToken : authenticate.data.token
           })
-          console.log(auth)
           navigate("/dashboard")
         }
       } catch (error) {

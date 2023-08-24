@@ -15,7 +15,6 @@ import PendingWorkOrderPage from "./pages/PendingWorkOrderPage/PendingWorkOrderP
 import EmployeeData from "./pages/EmployeeData/EmployeeData";
 import NotFound from "./components/NotFound/NotFound";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import PrivateRoutes from "./utils/PrivateRoutes/PrivateRoutes";
 import RequiredAuth from "./utils/PrivateRoutes/RequiredAuth";
 
 import useAuth from "./hooks/useAuth";
@@ -29,9 +28,11 @@ function App() {
         {auth.authorized && <Sidebar />}   
         <Routes>
           <Route path="/" element={<LoginPage/>} />
-          <Route element={<RequiredAuth/>}>
+          <Route element={<RequiredAuth allowedRoles={["welder","material handler"]} />}>
           <Route path="/dashboard" element={<WorkOrderPage />}/>
           <Route path="/workOrder/:id" element={<WorkOrderDetailsPage />} />
+          </Route>
+          <Route element={<RequiredAuth allowedRoles={["material handler"]} />}>
           <Route path="/locations" element={<LocationPage />} />
           <Route path="/issuanceLog" element={<IssuanceLog />} />
           <Route path="/workorders" element={<PendingWorkOrderPage />} />

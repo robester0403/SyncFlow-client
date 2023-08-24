@@ -2,8 +2,6 @@ import axios from "axios";
 import { IssuedMaterial } from "../model";
 
 
-
-
 const URL = import.meta.env.VITE_BASE_URL as string
 const materialURL = `${URL}/materials`;
 const workOrderURL = `${URL}/workorders`;
@@ -120,6 +118,7 @@ export const authentication = async (username: string, password: string) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const message = error.response?.data.msg;
+      console.log(message)
       return message
     }
   }

@@ -10,17 +10,21 @@ import { AiOutlineUser } from "react-icons/ai";
 import {  FiFolder} from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import useAuth from "../../hooks/useAuth";
 
 const Sidebar = () => {
   const menus = [
-    { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
-    { name: "Manage Yard", link: "/locations", icon: FaMapMarkerAlt },
-    { name: "Issuance Log", link: "/issuanceLog", icon: TbReportAnalytics, margin: true },
-    { name: "Employees", link: "/EmployeeData", icon: AiOutlineUser },
-    { name: "WorkOrders", link: "/workorders", icon: FiFolder },
+    { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard , allowedRoles: ["welder","material handler"]},
+    { name: "Manage Yard", link: "/locations", icon: FaMapMarkerAlt, allowedRoles: ["material handler"] },
+    { name: "Issuance Log", link: "/issuanceLog", icon: TbReportAnalytics, margin: true , allowedRoles: ["material handler"]},
+    { name: "Employees", link: "/EmployeeData", icon: AiOutlineUser , allowedRoles: ["material handler"]},
+    { name: "WorkOrders", link: "/workorders", icon: FiFolder, allowedRoles: ["material handler"] },
 
   ];
   const [open, setOpen] = useState(true);
+  const {auth} = useAuth();
+  const filteredMenus = menus.filter(menu => menu.allowedRoles.find(role => role === auth.role)) 
+
   return (
     <section className="sidebar">
     <div className={`sidebar__main ${open ? "sidebar__main--open" : "sidebar__main--closed"}`}>
@@ -31,7 +35,7 @@ const Sidebar = () => {
         />
       </div>
       <div className="sidebar__menu">
-        {menus?.map((menu, i) => (
+        {filteredMenus?.map((menu, i) => (
           <Link
             to={menu?.link}
             key={i}
