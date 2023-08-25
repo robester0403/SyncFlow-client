@@ -1,71 +1,58 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { authentication, getUserDetails } from "../../utils/api"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import loginImage from "../../assets/images/login-imag.png"
-import "./LoginPage.scss"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authentication, getUserDetails } from "../../utils/api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import "./LoginPage.scss";
 import useAuth from "../../hooks/useAuth";
+import LoginContainer from "../../components/LoginContainer/LoginContainer";
 interface Inputs {
-  username: string,
-  password: string
+  username: string;
+  password: string;
 }
 
 interface Error {
-  username: boolean,
-  password: boolean
+  username: boolean;
+  password: boolean;
 }
 const LoginPage = () => {
-
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const defaultValues = {
     username: "",
-    password: ""
-  }
+    password: "",
+  };
 
   const errorState = {
     username: false,
-    password: false
-  }
+    password: false,
+  };
 
-  const [values, setValues] = useState<Inputs>(defaultValues)
-  const [error, setError] = useState<Error>(errorState)
-  const { username, password } = values
+  const [values, setValues] = useState<Inputs>(defaultValues);
+  const [error, setError] = useState<Error>(errorState);
+  const { username, password } = values;
   const { setAuth } = useAuth();
 
-  useEffect(() => {
-    setAuth(prevAuth =>({
-      ...prevAuth,
-      authorized : false
-    }))
-  }, [])
-
-
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
-    setValues(
-      {
-        ...values,
-        [name]: value
-      }
-    )
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
 
-    setError(
-      {
-        ...error,
-        [name]: false
-      }
-    )
-  }
+    setError({
+      ...error,
+      [name]: false,
+    });
+  };
 
   const onSumbitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (username === "") {
-      setError({ ...error, username: true })
-      console.log(error)
-      toast.warn('Username and password required', {
+      setError({ ...error, username: true });
+      console.log(error);
+      toast.warn("Username and password required", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -75,11 +62,11 @@ const LoginPage = () => {
         progress: undefined,
         theme: "light",
       });
-      return
+      return;
     }
     if (password === "") {
-      setError({ ...error, password: true })
-      toast.warn('Username and password required', {
+      setError({ ...error, password: true });
+      toast.warn("Username and password required", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -94,9 +81,9 @@ const LoginPage = () => {
 
     const loginRequest = async () => {
       try {
-        const response = await authentication(username, password)
+        const response = await authentication(username, password);
         if (response === "Invalid credentials") {
-          toast.error('Invalid username or password', {
+          toast.error("Invalid username or password", {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -106,62 +93,33 @@ const LoginPage = () => {
             progress: undefined,
             theme: "light",
           });
-
         } else {
-          sessionStorage.setItem("authToken", response.data.token);
-          const authenticate = await authentication(username, password)
-          const getUserInfo = await getUserDetails(authenticate.data.token)
+          const authenticate = await authentication(username, password);
+          const getUserInfo = await getUserDetails(authenticate.data.token);
           setAuth({
-            role : getUserInfo?.data.employee__role            ,
-            authorized : true,
-            employeeName : getUserInfo?.data.employee_name            ,
-            accessToken : authenticate.data.token
-          })
-          navigate("/dashboard")
+            role: getUserInfo?.data.employee__role,
+            authorized: true,
+            employeeName: getUserInfo?.data.employee_name,
+            accessToken: authenticate.data.token,
+          });
+          navigate("/dashboard");
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    loginRequest()
-  }
+    };
+    loginRequest();
+  };
 
   return (
-    <div className="login__container">
-      <div className="login__container-form">
-        <h3 className="login__container-title">Login</h3>
-        <form className="login__form"
-          onSubmit={onSumbitHandler}>
-          <label className="login__form-label" >
-            Username
-            <input className="login__form-input"
-              type="input"
-              name="username"
-              placeholder="Username"
-              value={username}
-              onChange={onChangeHandler}
-            />
-            {error.username ? <div>this field is required</div> : ""}
-          </label>
-          <label className="login__form-label" >
-            Passwords
-            <input className={`login__form-input  ${error.password ? "login__form-input--invalid" : ""}`}
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={onChangeHandler}
-            />
-          </label>
-          <button className="login__form-button">Login</button>
-        </form>
-      </div>
-      <img className="login__form-image"
-        src={loginImage}
-        alt="People managing inventory" />
-      <ToastContainer />
-    </div>
-  )
-}
+    <LoginContainer
+      onChangeHandler={onChangeHandler}
+      onSumbitHandler={onSumbitHandler}
+      username={username}
+      password={password}
+      error={error}
+    />
+  );
+};
 
-export default LoginPage
+export default LoginPage;

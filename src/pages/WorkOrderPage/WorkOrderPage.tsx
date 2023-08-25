@@ -1,67 +1,74 @@
 // TOOLS
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // Components
 import WorkOrderPageHeader from "../../components/WorkOrderPageHeader/WorkOrderPageHeader";
 import WorkOrderTableRow from "../../components/WorkOrderTableRow/WorkOrderTableRow";
 import { WorkOrder } from "../../model";
 
-import "./WorkOrderPage.scss"
+import "./WorkOrderPage.scss";
 import { getAllWorkOrders } from "../../utils/api";
 import Loading from "../../components/Loading/Loading";
 import TablesHeader from "../../components/TablesHeader/TablesHeader";
-import AuthContext from "../../context/AuthContext";
-
-
+import useAuth from "../../hooks/useAuth";
 
 const WorkOrderPage = () => {
-  const{auth} = useContext(AuthContext)
-  const [workOrders, setWorkOrders] = useState<WorkOrder[]>()
-  const [searchField, setSearchField] = useState<string>("")
+  const { auth } = useAuth();
+  const [workOrders, setWorkOrders] = useState<WorkOrder[]>();
+  const [searchField, setSearchField] = useState<string>("");
+
   useEffect(() => {
-    const fetchWorkOrders = async () => {
-      const authToken = sessionStorage.getItem('authToken')
-      if (authToken) {
-        const response = await getAllWorkOrders(authToken)
-        setWorkOrders(response);
-      }
+    try {
+      const fetchWorkOrders = async () => {
+        const authToken = auth.accessToken;
+        if (authToken) {
+          const response = await getAllWorkOrders(authToken);
+          setWorkOrders(response);
+        }
+      };
+      fetchWorkOrders();
+    } catch (error) {
+      console.log(error);
     }
-    console.log(auth)
-    fetchWorkOrders()
-  }, [])
+  }, []);
 
   if (!workOrders) {
-    return <Loading />
+    return <Loading />;
   }
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchField(event.target.value)
-
-  }
+    setSearchField(event.target.value);
+  };
   const filteredArray = workOrders.filter((eachOrder) => {
-    return eachOrder.project_name.toLowerCase().includes(searchField.toLowerCase())
-  })
+    return eachOrder.project_name
+      .toLowerCase()
+      .includes(searchField.toLowerCase());
+  });
 
   return (
     <section className="container">
-      <TablesHeader title="WorkOrders"
+      <TablesHeader
+        title="WorkOrders"
         searchField={searchField}
-        onChangeHandler={onChangeHandler} />
+        onChangeHandler={onChangeHandler}
+      />
 
       <div className="container__card">
         <div className="container__card__overflow">
           <WorkOrderPageHeader />
           <div className="container__card__content">
-            {
-              filteredArray.map((workOrder) => {
-                return <WorkOrderTableRow workOrder={workOrder}
-                  key={workOrder.work_order_id} />
-              })
-            }
+            {filteredArray.map((workOrder) => {
+              return (
+                <WorkOrderTableRow
+                  workOrder={workOrder}
+                  key={workOrder.work_order_id}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default WorkOrderPage
+export default WorkOrderPage;
