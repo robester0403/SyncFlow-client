@@ -20,10 +20,10 @@ const WorkOrderPage = () => {
     try {
       const fetchWorkOrders = async () => {
         const authToken = auth.accessToken;
-        if (authToken) {
-          const response = await getAllWorkOrders(authToken);
-          setWorkOrders(response);
-        }
+        console.log(authToken);
+
+        const response = await getAllWorkOrders(authToken);
+        setWorkOrders(response);
       };
       fetchWorkOrders();
     } catch (error) {

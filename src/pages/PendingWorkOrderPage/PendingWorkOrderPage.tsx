@@ -16,7 +16,6 @@ const PendingWorkOrderPage = () => {
       const fetchWorkorders = async () => {
         const response = await getPendingWorkOrders();
         setWorkOrders(response);
-        console.log(response);
       };
       fetchWorkorders();
     } catch (error) {

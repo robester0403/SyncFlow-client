@@ -32,7 +32,7 @@ const LoginPage = () => {
   const [values, setValues] = useState<Inputs>(defaultValues);
   const [error, setError] = useState<Error>(errorState);
   const { username, password } = values;
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -95,14 +95,18 @@ const LoginPage = () => {
           });
         } else {
           const authenticate = await authentication(username, password);
-          const getUserInfo = await getUserDetails(authenticate.data.token);
-          setAuth({
-            role: getUserInfo?.data.employee__role,
-            authorized: true,
-            employeeName: getUserInfo?.data.employee_name,
-            accessToken: authenticate.data.token,
-          });
-          navigate("/dashboard");
+          if (authenticate.data.token) {
+            const userDetails = await getUserDetails(authenticate.data.token);
+            const { role, name } = userDetails?.data;
+            setAuth({
+              authorized: true,
+              role: role,
+              employeeName: name,
+              accessToken: authenticate.data.token,
+            });
+            navigate("/dashboard");
+            console.log("I am being triggered");
+          }
         }
       } catch (error) {
         console.log(error);
@@ -110,6 +114,8 @@ const LoginPage = () => {
     };
     loginRequest();
   };
+
+  // console.log("I am being triggered");
 
   return (
     <LoginContainer
