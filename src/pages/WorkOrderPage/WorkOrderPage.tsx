@@ -7,23 +7,31 @@ import { WorkOrder } from "../../model";
 
 import "./WorkOrderPage.scss";
 import { getAllWorkOrders } from "../../utils/api";
+
+import { workOrderURL } from "../../utils/api";
 import Loading from "../../components/Loading/Loading";
 import TablesHeader from "../../components/TablesHeader/TablesHeader";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const WorkOrderPage = () => {
   const { auth } = useAuth();
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>();
   const [searchField, setSearchField] = useState<string>("");
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     try {
       const fetchWorkOrders = async () => {
         const authToken = auth.accessToken;
         console.log(authToken);
+        const response = await axiosPrivate.get(workOrderURL, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
 
-        const response = await getAllWorkOrders(authToken);
-        setWorkOrders(response);
+        setWorkOrders(response.data);
       };
       fetchWorkOrders();
     } catch (error) {

@@ -4,7 +4,7 @@ import { IssuedMaterial } from "../model";
 
 const URL = import.meta.env.VITE_BASE_URL as string;
 const materialURL = `${URL}/materials`;
-const workOrderURL = `${URL}/workorders`;
+export const workOrderURL = `${URL}/workorders`;
 export const locationURL = `${URL}/location`;
 const employeeURL = `${URL}/employee`;
 
@@ -128,9 +128,10 @@ export const initateWorkOrder = async (data: {
 
 export const getNewAccessToken = async () => {
   try {
-    const response = await axios.get(`${URL}/refresh_token`, {
+    const response = await axios.get(`${URL}/refresh`, {
       withCredentials: true,
     });
+    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error);
