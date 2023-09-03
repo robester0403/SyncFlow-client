@@ -25,7 +25,6 @@ const useAxiosPrivate = () => {
         if (error?.response?.status === 403) {
           prevRequest.sent = true;
           const token = await refresh();
-          console.log(token);
           prevRequest.headers["Authorization"] = `Bearer ${token}`;
           return axiosPrivate(prevRequest);
         }

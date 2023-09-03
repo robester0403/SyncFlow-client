@@ -9,6 +9,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { logout } from "../../utils/api";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Header = () => {
   ];
 
   const handleUserLogout = () => {
+    logout();
     setAuth((prevAuth) => ({
       ...prevAuth,
       authorized: false,
@@ -35,7 +37,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__content">
-        <h1 className="header__title" onClick={() => navigate("/")}>
+        <h1 className="header__title" onClick={() => navigate("/dashboard")}>
           SyncFlow
         </h1>
         <div className="header__icon" onClick={() => setDropDown(!dropDown)}>
