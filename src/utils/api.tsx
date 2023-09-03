@@ -1,5 +1,4 @@
-import axios from "axios";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import axios, { AxiosInstance } from "axios";
 import { IssuedMaterial } from "../model";
 
 const URL = import.meta.env.VITE_BASE_URL as string;
@@ -14,9 +13,13 @@ export const axiosPrivate = axios.create({
   withCredentials: true,
 });
 
-export const getAllWorkOrders = async (authToken: string) => {
+// API calls related to work orders
+export const getAllWorkOrders = async (
+  authToken: string,
+  useAxiosPrivate: AxiosInstance
+) => {
   try {
-    const response = await axios.get(workOrderURL, {
+    const response = await useAxiosPrivate.get(workOrderURL, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -36,6 +39,27 @@ export const getWorkOrderDetails = async (id: string | undefined) => {
   }
 };
 
+export const initateWorkOrder = async (data: {
+  work_order_id: number;
+  employee_id: number;
+}) => {
+  try {
+    axios.post(workOrderURL, data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPendingWorkOrders = async () => {
+  try {
+    const response = await axios.get(`${workOrderURL}/pending`);
+    return response.data;
+  } catch (error) {
+    console.log(error, " pendingWorkorders");
+  }
+};
+
+// API calls related to materials
 export const getMaterials = async (id: string | undefined) => {
   try {
     const response = await axios.get(`${materialURL}/${id}`);
@@ -72,6 +96,7 @@ export const getIssuedMaterial = async () => {
   return response;
 };
 
+// API calls related to locations
 export const updateMaterialLocation = async (
   id: string,
   updatedLocation: { location: number }
@@ -92,19 +117,10 @@ export const getLocations = async () => {
   }
 };
 
-export const getPendingWorkOrders = async () => {
-  try {
-    const response = await axios.get(`${workOrderURL}/pending`);
-    return response.data;
-  } catch (error) {
-    console.log(error, " pendingWorkorders");
-  }
-};
-
+// API calls related to getting employees data
 export const getEmployees = async (authToken: string) => {
-  const axiosPrivateInstance = useAxiosPrivate();
   try {
-    const response = await axiosPrivateInstance.get(employeeURL, {
+    const response = await axios.get(employeeURL, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -115,17 +131,7 @@ export const getEmployees = async (authToken: string) => {
   }
 };
 
-export const initateWorkOrder = async (data: {
-  work_order_id: number;
-  employee_id: number;
-}) => {
-  try {
-    axios.post(workOrderURL, data);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
+// Authentication API calls
 export const getNewAccessToken = async () => {
   try {
     const response = await axios.get(`${URL}/refresh`, {
@@ -140,10 +146,17 @@ export const getNewAccessToken = async () => {
 
 export const authentication = async (username: string, password: string) => {
   try {
-    const response = await axios.post(`${URL}/login`, {
-      username: username,
-      password: password,
-    });
+    const response = await axios.post(
+      `${URL}/login`,
+      {
+        username: username,
+        password: password,
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {

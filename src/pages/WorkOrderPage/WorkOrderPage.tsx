@@ -7,8 +7,6 @@ import { WorkOrder } from "../../model";
 
 import "./WorkOrderPage.scss";
 import { getAllWorkOrders } from "../../utils/api";
-
-import { workOrderURL } from "../../utils/api";
 import Loading from "../../components/Loading/Loading";
 import TablesHeader from "../../components/TablesHeader/TablesHeader";
 import useAuth from "../../hooks/useAuth";
@@ -24,14 +22,8 @@ const WorkOrderPage = () => {
     try {
       const fetchWorkOrders = async () => {
         const authToken = auth.accessToken;
-        console.log(authToken);
-        const response = await axiosPrivate.get(workOrderURL, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-
-        setWorkOrders(response.data);
+        const response = await getAllWorkOrders(authToken, axiosPrivate);
+        setWorkOrders(response);
       };
       fetchWorkOrders();
     } catch (error) {
