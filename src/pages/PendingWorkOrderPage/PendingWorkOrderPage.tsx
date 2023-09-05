@@ -28,7 +28,6 @@ const PendingWorkOrderPage = () => {
     setSearchField(value);
   };
 
-  console.log(workOrders);
   if (!workOrders) {
     return <Loading />;
   }

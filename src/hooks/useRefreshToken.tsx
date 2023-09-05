@@ -7,7 +7,12 @@ const useRefreshToken = () => {
   const getAccessToken = async () => {
     try {
       const response = await getNewAccessToken();
-      setAuth((prev) => ({ ...prev, accessToken: response.token }));
+      setAuth((prev) => ({
+        ...prev,
+        accessToken: response.token,
+        authorized: true,
+        role: response.role,
+      }));
       return response.token;
     } catch (error) {
       console.log(error);

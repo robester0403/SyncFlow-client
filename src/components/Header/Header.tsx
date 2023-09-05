@@ -24,12 +24,14 @@ const Header = () => {
     { name: "WorkOrders", link: "/workorders", icon: FiFolder },
   ];
 
-  const handleUserLogout = () => {
-    logout();
-    setAuth((prevAuth) => ({
-      ...prevAuth,
+  const handleUserLogout = async () => {
+    await logout();
+    setAuth({
       authorized: false,
-    }));
+      role: "",
+      employeeName: "",
+      accessToken: "",
+    });
     setUserProfile(false);
     navigate("/");
   };

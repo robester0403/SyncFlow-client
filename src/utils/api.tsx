@@ -168,10 +168,9 @@ export const authentication = async (username: string, password: string) => {
 
 export const logout = async () => {
   try {
-    const response = await axios.get(`${URL}/logout`, {
+    await axiosPrivate.get(`${URL}/logout`, {
       withCredentials: true,
     });
-    return response;
   } catch (error) {
     console.log(error);
   }
