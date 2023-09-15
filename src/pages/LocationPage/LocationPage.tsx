@@ -17,13 +17,20 @@ const LocationPage = () => {
   const [isLimitReached, setIsLimitReached] = useState(false);
 
   useEffect(() => {
+    // you can probrably put the api logic in your utils folder.
+    // this file does not necessarily care about what's in the axios get.
+    // refactor the axios.get into a const locationData = getLocations(locationURL) and then
+    // locationData.map...
     axios.get(locationURL).then((res) => {
       const locationsWithMaterial = res.data.map(
         async (location: Locations) => {
+          // weird nesting of another get call here. maybe it should all be handled in the backend,
+          // and returned to you as an more organized object.
           const materialsRes = await axios.get(
             `${locationURL}/materials/${location.location}`
           );
           return {
+            // this is definitely backend logic
             location: location,
             materials: materialsRes.data.filter(
               (material: Material) => material.status === "received"
@@ -31,11 +38,15 @@ const LocationPage = () => {
           };
         }
       );
+
+      // I would stick with async await instead of mixing promises
       Promise.all(locationsWithMaterial).then((completed) =>
         setLocations(completed)
       );
     });
   }, []);
+
+  // weird loading logic explained before. you can just do if(!locations) return <Loading />
   if (!locations) {
     return <Loading />;
   }
@@ -55,6 +66,8 @@ const LocationPage = () => {
     if (
       !sourceLocation ||
       !destinationLocation ||
+
+      // should the destination location logic be a different condition than the drag not finding a source or destination?
       destinationLocation.materials.length >= 10
     ) {
       setIsLimitReached(true);
@@ -78,6 +91,7 @@ const LocationPage = () => {
         <h1 className="location-table__heading">
           Geographical Material Mapping
         </h1>
+        {/* spelling error componnets*/}
         <div className="location-table__componnets">
           {locations.map((eachLocation) => {
             return (
@@ -88,6 +102,7 @@ const LocationPage = () => {
               />
             );
           })}
+          {/* notification-hidden is not needed here as the component will always be rendered with isLimitReached being true */}
           {isLimitReached && (
             <div
               className={`notification ${
